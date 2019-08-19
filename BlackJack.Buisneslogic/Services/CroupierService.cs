@@ -23,5 +23,9 @@ namespace BlackJack.BuisnesLogic.Services
         {
             return 0;
         }
+        public override void SetManey(decimal maney)
+        {
+           
+        }
     }
 }

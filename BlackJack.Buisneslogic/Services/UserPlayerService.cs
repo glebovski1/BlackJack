@@ -34,6 +34,10 @@ namespace BlackJack.BuisnesLogic.Services
 
             return maney;
         }
+        public override void SetManey(decimal maney)
+        {
+            userPlayer.Maney += maney;
+        }
         public override bool Next()
         {
             printDell(mess2);
@@ -42,7 +46,7 @@ namespace BlackJack.BuisnesLogic.Services
             
             do
             {
-                string command = readDell.Invoke();
+                string command = readDell().ToString();
                 if (command == Commands.next.ToString())
                 {
 

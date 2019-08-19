@@ -4,20 +4,24 @@ using System.Text;
 using BlackJack.Data;
 using static BlackJack.Constants.Constants;
 using BlackJack.Enums;
+using BlackJack.Buisneslogic.Services.Interfaces;
 
 namespace BlackJack.BuisnesLogic.Services
 {
-    public class BotPlayerSevice : BasePlayerSevice
+    public class BotPlayerSevice : BasePlayerSevice, IBotPlayerService
     {
-        public BotPlayer botPlayer;
+        public List <BotPlayer> botPlayers;
 
-        public BotPlayerSevice(string name, decimal maney)
+        public BotPlayerSevice(int numberOfBots)
         {
-            botPlayer = new BotPlayer(name, maney);
-            base.basePlayer = botPlayer;
+            botPlayers = new List<BotPlayer>();
+            for (int i = 0; i < numberOfBots; i++)
+            {
+                botPlayers.Add(new BotPlayer(RandomBotName(), BotStartManey));
+            }
         }
 
-        public override bool Next()
+        public override bool[] Next()
         {
             if (botPlayer.Score < BotTopScore)
             {
@@ -35,7 +39,7 @@ namespace BlackJack.BuisnesLogic.Services
 
         }
 
-        public static List<BotPlayerSevice> GetBots(int numberOfBots)
+        public static List<BotPlayer> GetBots(int numberOfBots)
         {
             List<BotPlayerSevice> botlist = new List<BotPlayerSevice>();
             for (int i=0; i< numberOfBots; i++)
@@ -51,6 +55,10 @@ namespace BlackJack.BuisnesLogic.Services
             botPlayer.Maney -= maney;
 
             return maney;
+        }
+        public override void SetManey(decimal maney)
+        {
+            botPlayer.Maney += maney;
         }
 
     }

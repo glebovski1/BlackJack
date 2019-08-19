@@ -10,17 +10,8 @@ namespace Presentation
 {
     class Presentation
     {
-        PrintDell printDell;
-
-        ReadDell readDell;
-
-        public Presentation()
-        {
-            printDell = new PrintDell(Print);
-
-            readDell = new ReadDell(Read);
-        }
-
+        
+        
         public void Print(string text)
         {
             Console.WriteLine(text);
@@ -50,9 +41,9 @@ namespace Presentation
 
             int numberofbots = Convert.ToInt32(Console.ReadLine());
 
-            GameService gameService = new GameService(firstname, lastname, maney, readDell, printDell, numberofbots);
+            GameService gameService = new GameService(firstname, lastname, maney, Read, Print, numberofbots);
 
-            gameService.Game(printDell, readDell);
+            gameService.Game();
         }
         
     }

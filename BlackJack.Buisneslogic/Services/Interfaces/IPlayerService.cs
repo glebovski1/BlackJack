@@ -18,5 +18,7 @@ namespace BlackJack.BuisnesLogic.Interfaces
         bool Next();
 
         decimal GetManey();
+
+        void SetManey(decimal maney);
     }
 }

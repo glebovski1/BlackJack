@@ -49,5 +49,7 @@ namespace BlackJack.BuisnesLogic.Services
         }
 
         public abstract decimal GetManey();
+
+        public abstract void SetManey(decimal maney);
     }
 }
