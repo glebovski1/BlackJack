@@ -11,17 +11,36 @@ namespace BlackJack.BuisnesLogic.Services
 {
     public class UserPlayerService : BasePlayerSevice
     {
-        public UserPlayer userPlayer;
+        UserPlayer UserPlayer { get; set; }
+        public PrintDell printDell { get; private set; }
+        public ReadDell readDell { get; private set; }
 
-        public PrintDell printDell;
-
-        public ReadDell readDell;
-
-        public UserPlayerService(string firstname, string lastname, decimal maney, PrintDell _printDell, ReadDell _readDell)
+        public UserPlayerService( PrintDell _printDell, ReadDell _readDell)
         {
-            userPlayer = new UserPlayer(firstname, lastname, maney);
-            base.basePlayer = userPlayer;
+            string firstname;
+
+            string lastname;
+
+            decimal maney;
+
+            printDell(PresentationMess2);
+
+            firstname = readDell();
+
+            printDell(PresentationMess4);
+
+            lastname = readDell();
+
+            printDell(PresentationMess3);
+
+            maney = Convert.ToDecimal(readDell());
+
+            UserPlayer = new UserPlayer(firstname, lastname, maney);
+
+            base.BasePlayer = UserPlayer;
+
             printDell = _printDell;
+
             readDell = _readDell;
         }
 
@@ -30,46 +49,47 @@ namespace BlackJack.BuisnesLogic.Services
             printDell(mess8);
             decimal maney = Convert.ToDecimal(readDell());
 
-            userPlayer.Maney -= maney;
+            UserPlayer.Maney -= maney;
 
             return maney;
         }
-        public override void SetManey(decimal maney)
-        {
-            userPlayer.Maney += maney;
-        }
+        
         public override bool Next()
         {
             printDell(mess2);
             printDell(mess1);
-            
-            
-            do
+
+            bool output = false;
+            for (int i = 0; i < 1; i++)
             {
+                
                 string command = readDell().ToString();
                 if (command == Commands.next.ToString())
                 {
 
-                    return true;
+                    output = true;
 
                 }
-                else if (command == Commands.stop.ToString())
+                 if (command == Commands.stop.ToString())
                 {
 
-                    return false;
+                    output = false;
                 }
 
-                else if (command == Commands.quit.ToString())
+                 if (command == Commands.quit.ToString())
                 {
-                    return false;
+                    break;
                 }
 
                 else
                 {
                     printDell("Not valid command");
-
+                    i = 0;
                 }
-            } while (true);
+                
+            }
+            return output;
+
         }
         
     }

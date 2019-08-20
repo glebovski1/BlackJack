@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Data", "BlackJack.Data\BlackJack.Data.csproj", "{5349576D-B93F-43E7-A667-0774D8E42B21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Data", "BlackJack.Data\BlackJack.Data.csproj", "{5349576D-B93F-43E7-A667-0774D8E42B21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Constants", "BlackJack.Constants\BlackJack.Constants.csproj", "{B49852F2-3033-415F-A79C-761B069195E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Constants", "BlackJack.Constants\BlackJack.Constants.csproj", "{B49852F2-3033-415F-A79C-761B069195E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Enums", "BlackJack.Enums\BlackJack.Enums.csproj", "{D62FECC7-DF11-44E9-B9D3-EB84F9E1BE05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Enums", "BlackJack.Enums\BlackJack.Enums.csproj", "{D62FECC7-DF11-44E9-B9D3-EB84F9E1BE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Buisneslogic", "BlackJack.Buisneslogic\BlackJack.Buisneslogic.csproj", "{88D8FA74-36EB-40B1-968A-1B074A98BE05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.BuisnesLogic", "BlackJack.Buisneslogic\BlackJack.BuisnesLogic.csproj", "{88D8FA74-36EB-40B1-968A-1B074A98BE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.Presentation", "BlackJack.Presentation\BlackJack.Presentation.csproj", "{BD0AEBB5-0E69-4F03-915A-2D40F4978D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Presentation", "BlackJack.Presentation\BlackJack.Presentation.csproj", "{BD0AEBB5-0E69-4F03-915A-2D40F4978D46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

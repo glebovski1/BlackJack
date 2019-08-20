@@ -10,5 +10,6 @@ namespace BlackJack.Constants
         public const int BotTopScore = 16;
         public const int BotStartManey = 500;
         public const int DeckFactor = 10;
+        public const int BotRateManey = 100;
     }
 }

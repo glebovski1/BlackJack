@@ -1,149 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BlackJack.BuisnesLogic.Interfaces;
+
 using BlackJack.BuisnesLogic.Delegates;
 using BlackJack.Enums;
 using static BlackJack.Constants.Messages;
 using static BlackJack.Constants.Constants;
 using BlackJack.Data;
-using BlackJack.Buisneslogic.Services.Interfaces;
+
+using BlackJack.BuisnesLogic.Services.Interfaces;
 
 namespace BlackJack.BuisnesLogic.Services
 {
     public class GameService
     {
-        List<IPlayerService> playerServices;
+        IPlayerService UserService { get; set; }
+        
+        IPlayerService CroupierService { get; set; }
 
-        DeckService deckService;
+        IBotService BotService { get; set; }   
+
+        DeckService DeckService { get; set; }
+
         public PrintDell printDell;
 
         public ReadDell readDell;
 
-        private readonly IBotPlayerService _botPlayerService;
-        public GameService(string firstname, string lastname, decimal maney, ReadDell _readDell, PrintDell _printDell, int numberOfBots)
+        
+        public GameService(ReadDell _readDell, PrintDell _printDell)
         {
-            playerServices = new List<IPlayerService>();
-            deckService = new DeckService(DeckFactor);
-            printDell = _printDell;
             readDell = _readDell;
 
-            _botPlayerService = new BotPlayerSevice("firstname", 500);
+            printDell = _printDell;
 
-            playerServices.Add(new CroupierService());
-            playerServices.Add(new UserPlayerService(firstname, lastname, maney, _printDell, _readDell ));
-            playerServices.AddRange(BotPlayerSevice.GetBots(numberOfBots));
+            CroupierService = new CroupierService();
 
-            (_botPlayerService as IPlayerService). 
+            UserService = new UserPlayerService(printDell, readDell);
+
+            printDell(PresentationMess5);
+
+            
+
+            BotService = new BotService();
         }
+
+
 
         public void Game()
         {
-            string command = null;
-
-            while (command != Commands.quit.ToString())
+            for (int i=0; i<10; i++)
             {
-                command = readDell();
-                Round();
-                //command = readDell();
-                //for (int i=0; i<playerServices.Count; i++)
-                //{
-                    
-                //    if (playerServices[i].Next())
-                //    {
-                //        Card card = deckService.GetCard();
-                        
-                //        if (playerServices[i] is UserPlayerService)
-                //        {
-                //            playerServices[i].SetCard(card);
-                //            printDell(mess5 + card.CardName + card.CardSuit);
-                //        }
-                //        else 
-                //        {
-                //            playerServices[i].SetCard(card);
-                //            printDell(playerServices[i].GetName() + mess4);
-                //        }
-                //    }
-                //    if (playerServices[i].GetScore() >= TopScore)
-                //    {
-                //        i = 0;
-                //        printDell(GetWinner());
-                        
-                //    }
-                //    if (playerServices[i].Next() != true)
-                //    {
-                //        i = 0;
-                //        printDell(GetWinner());
-                        
-                //    }
-                //    if (deckService.Deck.Count == 0)
-                //    {
-                //        printDell(mess3);
-                        
-                //    }
-                //}
+                decimal maneyPull = 0;
 
-            } 
-        }
-
-        public void Circle( decimal maney)
-        {
-            
-            for (int i = 0; i < playerServices.Count; i++)
-            {
-                bool next = playerServices[i].Next();
-                if (next)
-                {
-                    Card card = deckService.GetCard();
-
-                    if (playerServices[i] is UserPlayer)
-                    {
-                        playerServices[i].SetCard(card);
-                        printDell(mess5 + card.CardName + card.CardSuit);
-                    }
-                    else
-                    {
-                        playerServices[i].SetCard(card);
-                        printDell(playerServices[i].GetName() + mess4);
-                    }
-                }
-                 if (playerServices[i].GetScore() >= TopScore)
-                {
-                    i = 0;
-                    printDell(GetWinner(maney));
-
-                }
-                 if (!next)
-                {
-                    i = 0;
-                    printDell(GetWinner(maney));
-
-                }
-                 if (deckService.Deck.Count == 0)
-                {
-                    printDell(mess3);
-
-                }
+                
             }
+            ;
         }
-        public string GetWinner(decimal maney)
+
+        public string GetWinner()
         {
             List<IPlayerService> TempPlayerServices = new List<IPlayerService>();
             TempPlayerServices.AddRange(playerServices);
-            for (int i=1; i<playerServices.Count; i++)
+            for (int i = 1; i < playerServices.Count; i++)
             {
-                
 
-                if (TempPlayerServices[i-1].GetScore() < TempPlayerServices[i].GetScore())
+
+                if (TempPlayerServices[i - 1].GetScore() < TempPlayerServices[i].GetScore())
                 {
                     IPlayerService temp;
-                    temp = TempPlayerServices[i-1];
-                    TempPlayerServices[i-1] = TempPlayerServices[i];
-                    TempPlayerServices[i-1] = temp;
+                    temp = TempPlayerServices[i - 1];
+                    TempPlayerServices[i - 1] = TempPlayerServices[i];
+                    TempPlayerServices[i - 1] = temp;
                     i = 0;
                 }
             }
-            for (int i=0; i<playerServices.Count; i++)
+            for (int i = 0; i < playerServices.Count; i++)
             {
                 playerServices[i].SetScore(0);
             }
@@ -151,22 +82,43 @@ namespace BlackJack.BuisnesLogic.Services
             return mess6 + TempPlayerServices[0].GetName() + mess7;
         }
 
-        public void Round()
+        public void Round(decimal maney)
         {
-            string command = null;
-            decimal maneypull = 0;
-            for (int i = 0; i < playerServices.Count; i++)
-            {
-                maneypull += playerServices[i].GetManey();
-            }
-            while (command != Commands.quit.ToString())
-            {
-                command = readDell();
+            printDell(mess7);
 
-                Circle (maneypull);
+            CroupierService.SetCard(DeckService.GetCard());
+
+            if (UserService.Next())
+            {
+                UserService.SetCard(DeckService.GetCard());
+            }
+            if (!UserService.Next())
+            {
+                GetWinner();
+            }
+            for (int i=0; i <(BotService as BotService).BotPlayers.Count; i++)
+            {
+                if(BotService.Next(i))
 
             }
+
+
+
+        }
+        public decimal ManeyRates()
+        {
+            decimal maney=0;
+
+            maney += UserService.GetManey();
+                for (int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
+            {
+                maney += BotService.GetManey(i);
+            }
+            return maney;
 
         }
     }
 }
+
+
+

@@ -7,12 +7,12 @@ namespace BlackJack.BuisnesLogic.Services
 {
     public class CroupierService : BasePlayerSevice
     {
-        public Сroupier сroupier;
+        public Сroupier Croupier { get; set; }
 
         public CroupierService() : base()
         {
-            сroupier = new Сroupier();
-            base.basePlayer = сroupier; 
+            Croupier = new Сroupier();
+            base.BasePlayer = Croupier; 
         }
 
         public override bool Next()
@@ -23,9 +23,6 @@ namespace BlackJack.BuisnesLogic.Services
         {
             return 0;
         }
-        public override void SetManey(decimal maney)
-        {
-           
-        }
+        
     }
 }

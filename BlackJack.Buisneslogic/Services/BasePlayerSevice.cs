@@ -1,44 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BlackJack.BuisnesLogic.Interfaces;
+using BlackJack.BuisnesLogic.Services.Interfaces;
 using BlackJack.Data;
 using static BlackJack.Constants.Constants;
 
 namespace BlackJack.BuisnesLogic.Services
 {
-    abstract public class BasePlayerSevice : IPlayerService
+     public class BasePlayerSevice : IPlayerService
     {
-        public BasePlayer basePlayer;
+        public BasePlayer BasePlayer { get; set; }
 
         public BasePlayerSevice()
         {
-            basePlayer = new BasePlayer();
+            BasePlayer = new BasePlayer();
         }
+
+
+       
 
         public string GetName()
         {
-            return basePlayer.FirstName;
+            return BasePlayer.FirstName;
         }
         public int GetScore()
         {
-            return basePlayer.Score;
+            return BasePlayer.Score;
         }
         public void SetScore(int x)
         {
-            basePlayer.Score = x;
+            BasePlayer.Score = x;
         }
         public void SetCard(Card card)
         {
-            if ((basePlayer.Score + card.CardScore1) <= TopScore)
+            if ((BasePlayer.Score + card.CardScore1) <= TopScore)
             {
-                basePlayer.SetOfCards.Add(card);
-                basePlayer.Score += card.CardScore1;
+                BasePlayer.SetOfCards.Add(card);
+                BasePlayer.Score += card.CardScore1;
             }
-            if ((basePlayer.Score + card.CardScore1) > TopScore)
+            if ((BasePlayer.Score + card.CardScore1) > TopScore)
             {
-                basePlayer.SetOfCards.Add(card);
-                basePlayer.Score += card.CardScore2;
+                BasePlayer.SetOfCards.Add(card);
+                BasePlayer.Score += card.CardScore2;
             }
         }
         
@@ -47,9 +50,17 @@ namespace BlackJack.BuisnesLogic.Services
         {
             return true;
         }
+        
+        public virtual decimal GetManey()
+        {
+            return 0;
+        }
 
-        public abstract decimal GetManey();
+        public virtual decimal GetManey(BasePlayer basePlayer)
+        {
+            return 0;
+        }
 
-        public abstract void SetManey(decimal maney);
+        
     }
 }

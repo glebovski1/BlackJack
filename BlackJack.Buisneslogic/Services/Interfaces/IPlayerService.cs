@@ -1,24 +1,29 @@
-﻿using System;
+﻿using BlackJack.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using BlackJack.Data;
 
-namespace BlackJack.BuisnesLogic.Interfaces
+namespace BlackJack.BuisnesLogic.Services.Interfaces
 {
     interface IPlayerService
     {
-        void SetCard(Card card);
+         string GetName();
 
-        string GetName();
+         int GetScore();
 
-        int GetScore();
+         void SetScore(int x);
+               
+         void SetCard(Card card);
+                      
+         bool Next();
+        
+         decimal GetManey();
 
-        void SetScore(int x);
+        
 
-        bool Next();
 
-        decimal GetManey();
 
-        void SetManey(decimal maney);
+          
+        
     }
 }

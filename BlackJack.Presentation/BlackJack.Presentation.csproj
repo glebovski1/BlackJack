@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlackJack.Buisneslogic\BlackJack.Buisneslogic.csproj" />
+    <ProjectReference Include="..\BlackJack.Buisneslogic\BlackJack.BuisnesLogic.csproj" />
     <ProjectReference Include="..\BlackJack.Constants\BlackJack.Constants.csproj" />
     <ProjectReference Include="..\BlackJack.Enums\BlackJack.Enums.csproj" />
   </ItemGroup>

@@ -15,6 +15,7 @@ namespace BlackJack.Constants
         public const string mess7 = "we are starting new raund...";
         public const string mess8 = "Your rate for this round ";
         
+        
 
         public const string PresentationMess1 = "Welcome to blackJack";
         public const string PresentationMess2 = "Write your name";

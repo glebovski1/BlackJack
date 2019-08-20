@@ -4,62 +4,59 @@ using System.Text;
 using BlackJack.Data;
 using static BlackJack.Constants.Constants;
 using BlackJack.Enums;
-using BlackJack.Buisneslogic.Services.Interfaces;
+using BlackJack.BuisnesLogic.Services.Interfaces;
+using BlackJack.BuisnesLogic.Delegates;
+using BlackJack.BuisnesLogic.Services.Interfaces;
+
+
 
 namespace BlackJack.BuisnesLogic.Services
 {
-    public class BotPlayerSevice : BasePlayerSevice, IBotPlayerService
+    public class BotService : BaseBotService
     {
-        public List <BotPlayer> botPlayers;
+        public List<BotPlayer> BotPlayers { get; set; }
 
-        public BotPlayerSevice(int numberOfBots)
+        public BotService()
         {
-            botPlayers = new List<BotPlayer>();
-            for (int i = 0; i < numberOfBots; i++)
-            {
-                botPlayers.Add(new BotPlayer(RandomBotName(), BotStartManey));
-            }
+            BotPlayers = new List<BotPlayer>();
+           
         }
-
-        public override bool[] Next()
+        public override decimal GetManey(int i)
         {
-            if (botPlayer.Score < BotTopScore)
-            {
-                return true;
-            }
-            else return false;
+            decimal maney = BotRateManey;
 
-        }
-
-        public static string RandomBotName()
-        {
-            Random rn = new Random();
-            int randomNumber = rn.Next((int)BotNames.Alexander);
-            return Convert.ToString((BotNames)randomNumber);
-
-        }
-
-        public static List<BotPlayer> GetBots(int numberOfBots)
-        {
-            List<BotPlayerSevice> botlist = new List<BotPlayerSevice>();
-            for (int i=0; i< numberOfBots; i++)
-            {
-                botlist.Add(new BotPlayerSevice(RandomBotName(), BotStartManey));
-            }
-            return botlist;
-        }
-        public override decimal GetManey()
-        {
-            decimal maney;
-            maney = botPlayer.Maney / 10;
-            botPlayer.Maney -= maney;
+            BotPlayers[i].Maney -= maney;
 
             return maney;
         }
-        public override void SetManey(decimal maney)
+        public override bool Next(int i)
         {
-            botPlayer.Maney += maney;
+            if (base.BaseBotPlayers[i].Score < BotTopScore)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        public override void SetCard(int i, Card card)
+        {
+            if ((base.BaseBotPlayers[i].Score + card.CardScore1) <= TopScore)
+            {
+                base.BaseBotPlayers[i].SetOfCards.Add(card);
+                base.BaseBotPlayers[i].Score += card.CardScore1;
+            }
+            if ((base.BaseBotPlayers[i].Score + card.CardScore1) > TopScore)
+            {
+                base.BaseBotPlayers[i].SetOfCards.Add(card);
+                base.BaseBotPlayers[i].Score += card.CardScore2;
+            }
+        }
+
+
+
+
 
     }
 }
