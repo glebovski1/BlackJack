@@ -11,7 +11,7 @@ namespace BlackJack.BuisnesLogic.Services
 {
     public class UserPlayerService : BasePlayerSevice
     {
-        UserPlayer UserPlayer { get; set; }
+        public UserPlayer UserPlayer { get; set; }
         public PrintDell printDell { get; private set; }
         public ReadDell readDell { get; private set; }
 
@@ -22,6 +22,10 @@ namespace BlackJack.BuisnesLogic.Services
             string lastname;
 
             decimal maney;
+
+            printDell = _printDell;
+
+            readDell = _readDell;
 
             printDell(PresentationMess2);
 

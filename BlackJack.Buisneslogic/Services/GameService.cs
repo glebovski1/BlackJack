@@ -39,7 +39,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             printDell(PresentationMess5);
 
-            
+            DeckService = new DeckService(DeckFactor);
 
             BotService = new BotService();
         }
@@ -50,36 +50,56 @@ namespace BlackJack.BuisnesLogic.Services
         {
             for (int i=0; i<10; i++)
             {
-                decimal maneyPull = 0;
+                Round(ManeyRates());
 
                 
             }
             ;
         }
 
-        public string GetWinner()
+        public void GetWinner(decimal maney)
         {
-            List<IPlayerService> TempPlayerServices = new List<IPlayerService>();
-            TempPlayerServices.AddRange(playerServices);
-            for (int i = 1; i < playerServices.Count; i++)
+            List<BasePlayer> basePlayers = new List<BasePlayer>();
+
+            basePlayers.Add((UserService as UserPlayerService).UserPlayer);
+
+            basePlayers.Add((CroupierService as CroupierService).Croupier);
+
+            for (int i=0; i< (BotService as BotService).BotPlayers.Count; i++)
             {
+                basePlayers.Add((BotService as BotService).BotPlayers[i]);
+            }
 
+            for(int i=1; i < basePlayers.Count; i++)
+            {
+                BasePlayer temp;
 
-                if (TempPlayerServices[i - 1].GetScore() < TempPlayerServices[i].GetScore())
+                if (basePlayers[i-1].Score < basePlayers[i].Score)
                 {
-                    IPlayerService temp;
-                    temp = TempPlayerServices[i - 1];
-                    TempPlayerServices[i - 1] = TempPlayerServices[i];
-                    TempPlayerServices[i - 1] = temp;
+                    temp = basePlayers[i - 1];
+
+                    basePlayers[i - 1] = basePlayers[i];
+
+                    basePlayers[i] = temp;
+
                     i = 0;
                 }
             }
-            for (int i = 0; i < playerServices.Count; i++)
+
+            printDell(mess6 + " " + basePlayers[0].FirstName);
+            if (basePlayers[0] is BotPlayer)
             {
-                playerServices[i].SetScore(0);
+                (basePlayers[0] as BotPlayer).Maney += maney;
             }
-            TempPlayerServices[0].SetManey(maney);
-            return mess6 + TempPlayerServices[0].GetName() + mess7;
+            if (basePlayers[0] is UserPlayer)
+            {
+                (basePlayers[0] as UserPlayer).Maney += maney;
+            }
+
+            for(int i=0; i< basePlayers.Count; i++)
+            {
+                basePlayers[i].Score = 0;
+            }
         }
 
         public void Round(decimal maney)
@@ -94,11 +114,18 @@ namespace BlackJack.BuisnesLogic.Services
             }
             if (!UserService.Next())
             {
-                GetWinner();
+                GetWinner(maney);
             }
             for (int i=0; i <(BotService as BotService).BotPlayers.Count; i++)
             {
                 if(BotService.Next(i))
+                {
+                    BotService.SetCard(i, DeckService.GetCard());
+                }
+                if (!BotService.Next(i))
+                {
+                    GetWinner(maney);
+                }
 
             }
 
@@ -110,7 +137,7 @@ namespace BlackJack.BuisnesLogic.Services
             decimal maney=0;
 
             maney += UserService.GetManey();
-                for (int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
+            for (int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
             {
                 maney += BotService.GetManey(i);
             }

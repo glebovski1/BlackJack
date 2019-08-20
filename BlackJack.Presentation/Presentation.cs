@@ -41,7 +41,7 @@ namespace Presentation
 
             int numberofbots = Convert.ToInt32(Console.ReadLine());
 
-            GameService gameService = new GameService(firstname, lastname, maney, Read, Print, numberofbots);
+            GameService gameService = new GameService( Read, Print);
 
             gameService.Game();
         }
