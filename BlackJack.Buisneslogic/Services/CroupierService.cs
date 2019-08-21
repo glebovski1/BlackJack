@@ -23,6 +23,11 @@ namespace BlackJack.BuisnesLogic.Services
         {
             return 0;
         }
-        
+        public override void SetCard(Card card)
+        {
+            base.SetCard(card);
+            
+        }
+
     }
 }

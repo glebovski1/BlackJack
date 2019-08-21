@@ -60,24 +60,23 @@ namespace BlackJack.BuisnesLogic.Services
         
         public override bool Next()
         {
-            printDell(mess2);
-            printDell(mess1);
 
-            bool output = false;
+
+            printDell(mess2);
             for (int i = 0; i < 1; i++)
             {
                 
                 string command = readDell().ToString();
                 if (command == Commands.next.ToString())
                 {
-
-                    output = true;
+                    
+                    return true;
 
                 }
                  if (command == Commands.stop.ToString())
                 {
 
-                    output = false;
+                    return false;
                 }
 
                  if (command == Commands.quit.ToString())
@@ -92,9 +91,14 @@ namespace BlackJack.BuisnesLogic.Services
                 }
                 
             }
-            return output;
+            return false;
 
         }
-        
+        public override void SetCard(Card card)
+        {
+            base.SetCard(card);
+            printDell(mess5 + " " + card.CardSuit + " " + card.CardName);
+        }
+
     }
 }

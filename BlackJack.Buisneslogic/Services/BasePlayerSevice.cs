@@ -14,6 +14,7 @@ namespace BlackJack.BuisnesLogic.Services
         public BasePlayerSevice()
         {
             BasePlayer = new BasePlayer();
+
         }
 
 
@@ -31,7 +32,7 @@ namespace BlackJack.BuisnesLogic.Services
         {
             BasePlayer.Score = x;
         }
-        public void SetCard(Card card)
+        public virtual void SetCard(Card card)
         {
             if ((BasePlayer.Score + card.CardScore1) <= TopScore)
             {

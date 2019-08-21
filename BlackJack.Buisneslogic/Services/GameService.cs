@@ -39,25 +39,34 @@ namespace BlackJack.BuisnesLogic.Services
 
             printDell(PresentationMess5);
 
+            int botNumber = Convert.ToInt32(readDell());
+
             DeckService = new DeckService(DeckFactor);
 
-            BotService = new BotService();
+            BotService = new BotService(botNumber);
         }
 
 
 
         public void Game()
         {
+            decimal maney = 0;
             for (int i=0; i<10; i++)
             {
-                Round(ManeyRates());
-
+                if (maney == 0)
+                {
+                    maney = ManeyRates();
+                }
+                Round(ref maney);
                 
+                
+
+
             }
             ;
         }
 
-        public void GetWinner(decimal maney)
+        public void GetWinner(ref decimal maney)
         {
             List<BasePlayer> basePlayers = new List<BasePlayer>();
 
@@ -100,37 +109,55 @@ namespace BlackJack.BuisnesLogic.Services
             {
                 basePlayers[i].Score = 0;
             }
+            maney = 0;
         }
 
-        public void Round(decimal maney)
+        public void Round(ref decimal maney)
         {
-            printDell(mess7);
+            
 
-            CroupierService.SetCard(DeckService.GetCard());
+            
 
-            if (UserService.Next())
+
+                CroupierService.SetCard(DeckService.GetCard());
+            bool playerStep = UserService.Next();
+
+                if (playerStep)
+                {
+                    UserService.SetCard(DeckService.GetCard());
+                    
+                }
+                if (!playerStep)
+                {
+                    GetWinner(ref maney);
+               
+                }
+
+                BotAction(ref maney);
+                
+                
+            
+            
+
+
+
+        }
+        public void BotAction(ref decimal maney)
+        {
+            for (int i = 0; i < (BotService as BotService).BotPlayers.Count; i++)
             {
-                UserService.SetCard(DeckService.GetCard());
-            }
-            if (!UserService.Next())
-            {
-                GetWinner(maney);
-            }
-            for (int i=0; i <(BotService as BotService).BotPlayers.Count; i++)
-            {
-                if(BotService.Next(i))
+                if (BotService.Next(i))
                 {
                     BotService.SetCard(i, DeckService.GetCard());
                 }
                 if (!BotService.Next(i))
                 {
-                    GetWinner(maney);
+                    GetWinner(ref maney);
+                     
                 }
 
             }
-
-
-
+            
         }
         public decimal ManeyRates()
         {
@@ -142,7 +169,7 @@ namespace BlackJack.BuisnesLogic.Services
                 maney += BotService.GetManey(i);
             }
             return maney;
-
+            
         }
     }
 }

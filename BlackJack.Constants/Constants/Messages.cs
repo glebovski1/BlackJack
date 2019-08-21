@@ -6,7 +6,7 @@ namespace BlackJack.Constants
 {
     public static class Messages
     {
-        public const string mess1 = "Write stop to findt out winner \n Write next to take next card";
+        public const string mess1 = "Write stop to find out winner \n Write next to take next card";
         public const string mess2 = "Write your command";
         public const string mess3 = "Deck has no card anymore";
         public const string mess4 = " takes card";

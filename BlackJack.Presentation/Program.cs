@@ -14,22 +14,11 @@ namespace Presentation
         static void Main(string[] args)
         {
             Presentation presentation;
-            string command;
-            Console.WriteLine("Write exite to exite");
-            Console.WriteLine("Write newgame to new game");
-            do
-            {
-               
-                command = Console.ReadLine();
-                if (command == "newgame")
-                {
-                    presentation = new Presentation();
+                            
+            presentation = new Presentation();
 
-                    presentation.NewGame();
-                }
-            }
-            while (command != "exite");
-            Console.WriteLine();
+            presentation.NewGame();
+                
             
         }
     }

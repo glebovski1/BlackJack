@@ -25,22 +25,6 @@ namespace Presentation
         {
             Console.WriteLine(PresentationMess1);
 
-            Console.WriteLine(PresentationMess2);
-
-            string firstname = Console.ReadLine();
-
-            Console.WriteLine(PresentationMess4);
-
-            string lastname = Console.ReadLine();
-
-            Console.WriteLine(PresentationMess3);
-
-            decimal maney = Convert.ToDecimal(Console.ReadLine());
-
-            Console.WriteLine(PresentationMess5);
-
-            int numberofbots = Convert.ToInt32(Console.ReadLine());
-
             GameService gameService = new GameService( Read, Print);
 
             gameService.Game();
