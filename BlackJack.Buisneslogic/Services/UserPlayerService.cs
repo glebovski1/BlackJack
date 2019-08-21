@@ -6,10 +6,12 @@ using static BlackJack.Constants.Constants;
 using BlackJack.Enums;
 using BlackJack.BuisnesLogic.Delegates;
 using static BlackJack.Constants.Messages;
+using BlackJack.BuisnesLogic.Services.Interfaces;
+using System.Data.SqlClient;
 
 namespace BlackJack.BuisnesLogic.Services
 {
-    public class UserPlayerService : BasePlayerSevice
+    public class UserPlayerService : BasePlayerSevice, IUserDBService
     {
         public UserPlayer UserPlayer { get; set; }
         public PrintDell printDell { get; private set; }
@@ -17,35 +19,64 @@ namespace BlackJack.BuisnesLogic.Services
 
         public UserPlayerService( PrintDell _printDell, ReadDell _readDell)
         {
-            string firstname;
-
-            string lastname;
-
-            decimal maney;
-
             printDell = _printDell;
 
             readDell = _readDell;
+            printDell(mess11);
 
-            printDell(PresentationMess2);
+            string command = readDell();
 
-            firstname = readDell();
+            if (command == Commands.l.ToString())
+            {
+                Logging();
+            }
 
-            printDell(PresentationMess4);
+            if (command == Commands.r.ToString())
+            {
+                Registartion();
+            }
+            //string firstname;
 
-            lastname = readDell();
+            //string lastname;
 
-            printDell(PresentationMess3);
+            //decimal maney;
 
-            maney = Convert.ToDecimal(readDell());
+            //string password;
 
-            UserPlayer = new UserPlayer(firstname, lastname, maney);
+            //printDell(PresentationMess2);
 
-            base.BasePlayer = UserPlayer;
+            //firstname = readDell();
 
-            printDell = _printDell;
+            //printDell(PresentationMess4);
 
-            readDell = _readDell;
+            //lastname = readDell();
+
+            //printDell(PresentationMess3);
+
+            //maney = Convert.ToDecimal(readDell());
+
+            //printDell(mess9);
+
+            //password = readDell();
+
+            //UserPlayer = new UserPlayer(firstname, lastname, maney, password);
+
+            //base.BasePlayer = UserPlayer;
+
+            //printDell = _printDell;
+
+            //readDell = _readDell;
+
+            //string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=usersdb;Integrated Security=True";
+            //string sqlExpression = "INSERT INTO Users (FirstName, LastName, Pasword, Maney) VALUES (@firstname, @lastname, @password, @maney)";
+
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    SqlCommand command = new SqlCommand(sqlExpression, connection);
+            //    int number = command.ExecuteNonQuery();
+                
+            //}
         }
 
         public override decimal GetManey()
@@ -67,19 +98,19 @@ namespace BlackJack.BuisnesLogic.Services
             {
                 
                 string command = readDell().ToString();
-                if (command == Commands.next.ToString())
+                if (command == Commands.n.ToString())
                 {
                     
                     return true;
 
                 }
-                 if (command == Commands.stop.ToString())
+                 if (command == Commands.s.ToString())
                 {
 
                     return false;
                 }
 
-                 if (command == Commands.quit.ToString())
+                 if (command == Commands.q.ToString())
                 {
                     break;
                 }
@@ -100,5 +131,133 @@ namespace BlackJack.BuisnesLogic.Services
             printDell(mess5 + " " + card.CardSuit + " " + card.CardName);
         }
 
+        public void Logging()
+        {
+            string loggin;
+            string pasword;
+            string paswordFromBD;
+            string connectionString;
+            printDell(PresentationMess2);
+            for (int i = 0; i < 10; i++)
+            {
+                loggin = readDell();
+                printDell(mess9);
+                pasword = readDell();
+                connectionString = conectionString;
+                string sqlExpression = "SELECT Pasword FROM Users WHERE FirstName = @loggin";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    paswordFromBD = Convert.ToString(command.ExecuteReader());
+
+                }
+                if (pasword == paswordFromBD)
+                {
+                    string firstname;
+
+                    sqlExpression = "SELECT FirstName FROM Users WHERE FirstName = @loggin";
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        firstname = Convert.ToString(command.ExecuteReader());
+
+                    }
+
+                    string lastname;
+
+                    sqlExpression = "SELECT LastName FROM Users WHERE FirstName = @loggin";
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        lastname = Convert.ToString(command.ExecuteReader());
+
+                    }
+
+                    decimal maney;
+
+                    sqlExpression = "SELECT Maney FROM Users WHERE FirstName = @loggin";
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        maney = Convert.ToDecimal(command.ExecuteReader());
+
+                    }
+                                                            
+                    UserPlayer = new UserPlayer(firstname, lastname, maney, pasword);
+                    break;
+                }
+                else
+                {
+                    printDell(mess10);
+                }
+            }
+
+
+        }
+
+        public void Registartion()
+        {
+            string firstname;
+
+            string lastname;
+
+            decimal maney;
+
+            string password;
+
+            printDell(PresentationMess2);
+
+            firstname = readDell();
+
+            printDell(PresentationMess4);
+
+            lastname = readDell();
+
+            printDell(PresentationMess3);
+
+            maney = Convert.ToDecimal(readDell());
+
+            printDell(mess9);
+
+            password = readDell();
+
+            UserPlayer = new UserPlayer(firstname, lastname, maney, password);
+
+            base.BasePlayer = UserPlayer;
+                       
+            string connectionString = conectionString;
+
+            string sqlExpression = String.Format("INSERT INTO Users (FirstName, LastName, Pasword, Maney) VALUES ('{0}', '{1}', '{2}', {3})", firstname, lastname, password, maney);
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                int number = command.ExecuteNonQuery();
+
+            }
+        }
+
+        public void Update()
+        {
+            string connectionString = conectionString;
+            string sqlExpression = "UPDATE [PlayerDtabase].[Users] SET Maney = @Maney WHERE FirstName = @firstname";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.ExecuteNonQuery();
+
+            }
+        }
     }
 }

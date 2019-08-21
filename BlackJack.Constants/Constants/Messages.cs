@@ -14,6 +14,9 @@ namespace BlackJack.Constants
         public const string mess6 = "Winner is ";
         public const string mess7 = "we are starting new raund...";
         public const string mess8 = "Your rate for this round ";
+        public const string mess9 = "Write yor password";
+        public const string mess10 = "Loggin or password is wrong";
+        public const string mess11 = "l - to loggin \n r - registration";
         
         
 

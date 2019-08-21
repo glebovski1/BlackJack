@@ -4,9 +4,9 @@ using System.Text;
 
 namespace BlackJack.BuisnesLogic.Services.Interfaces
 {
-    interface ILogging
+    interface IUserDBService
     {
-        bool Logging(string loggin, string pasword);
+        void Logging();
 
         void Registartion();
 

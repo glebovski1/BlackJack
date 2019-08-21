@@ -6,9 +6,11 @@ namespace BlackJack.Enums
 {
     public enum Commands
     {
-        next,
-        stop,
-        quit
+        n,
+        s,
+        q,
+        l,
+        r
     }
 
     public enum CardNames

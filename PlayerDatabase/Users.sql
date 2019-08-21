@@ -1,0 +1,9 @@
+﻿CREATE TABLE Users
+	(
+	ID INT DEFAULT 1 IDENTITY,
+	FirstName  NVARCHAR(20),
+LastName  NVARCHAR(20),
+Pasword  NVARCHAR(20),
+Maney MONEY
+)
+

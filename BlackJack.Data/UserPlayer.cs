@@ -12,13 +12,17 @@ namespace BlackJack.Data
 
         public decimal Maney { get; set; }
 
-        public UserPlayer(string firstname, string lastname, decimal maney) : base(firstname)
+        public string Password { get; set; }
+
+        public UserPlayer(string firstname, string lastname, decimal maney, string password) : base(firstname)
         {
             
 
             LastName = lastname;
 
             Maney = maney;
+
+            Password = password;
         }
 
     }
