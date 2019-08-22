@@ -37,9 +37,18 @@ namespace BlackJack.BuisnesLogic.Services
             return true;
         }
 
-        public virtual void SetCard(int i, Card card)
+        public void SetCard(int i, Card card)
         {
-            BaseBotPlayers[i].SetOfCards.Add(card);
+            if ((BaseBotPlayers[i].Score + card.CardScore1) <= TopScore)
+            {
+                BaseBotPlayers[i].SetOfCards.Add(card);
+                BaseBotPlayers[i].Score += card.CardScore1;
+            }
+            if ((BaseBotPlayers[i].Score + card.CardScore1) > TopScore)
+            {
+                BaseBotPlayers[i].SetOfCards.Add(card);
+                BaseBotPlayers[i].Score += card.CardScore2;
+            }
         }
 
         

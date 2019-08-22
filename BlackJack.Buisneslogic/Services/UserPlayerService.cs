@@ -35,48 +35,7 @@ namespace BlackJack.BuisnesLogic.Services
             {
                 Registartion();
             }
-            //string firstname;
-
-            //string lastname;
-
-            //decimal maney;
-
-            //string password;
-
-            //printDell(PresentationMess2);
-
-            //firstname = readDell();
-
-            //printDell(PresentationMess4);
-
-            //lastname = readDell();
-
-            //printDell(PresentationMess3);
-
-            //maney = Convert.ToDecimal(readDell());
-
-            //printDell(mess9);
-
-            //password = readDell();
-
-            //UserPlayer = new UserPlayer(firstname, lastname, maney, password);
-
-            //base.BasePlayer = UserPlayer;
-
-            //printDell = _printDell;
-
-            //readDell = _readDell;
-
-            //string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=usersdb;Integrated Security=True";
-            //string sqlExpression = "INSERT INTO Users (FirstName, LastName, Pasword, Maney) VALUES (@firstname, @lastname, @password, @maney)";
-
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    connection.Open();
-            //    SqlCommand command = new SqlCommand(sqlExpression, connection);
-            //    int number = command.ExecuteNonQuery();
-                
-            //}
+            
         }
 
         public override decimal GetManey()
@@ -144,57 +103,50 @@ namespace BlackJack.BuisnesLogic.Services
                 printDell(mess9);
                 pasword = readDell();
                 connectionString = conectionString;
-                string sqlExpression = "SELECT Pasword FROM Users WHERE FirstName = @loggin";
+                string sqlExpression = String.Format("SELECT Pasword FROM Users WHERE FirstName = '{0}';", loggin);
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    paswordFromBD = Convert.ToString(command.ExecuteReader());
+                    paswordFromBD = Convert.ToString(command.ExecuteScalar());
 
                 }
-                if (pasword == paswordFromBD)
+                if (paswordFromBD == pasword)
                 {
-                    string firstname;
+                    string firstname = loggin;
 
-                    sqlExpression = "SELECT FirstName FROM Users WHERE FirstName = @loggin";
-
-                    using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-                        SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        firstname = Convert.ToString(command.ExecuteReader());
-
-                    }
+                    
 
                     string lastname;
 
-                    sqlExpression = "SELECT LastName FROM Users WHERE FirstName = @loggin";
+                    sqlExpression = String.Format("SELECT LastName FROM Users WHERE FirstName = '{0}';", loggin);
 
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        lastname = Convert.ToString(command.ExecuteReader());
+                        lastname = Convert.ToString(command.ExecuteScalar());
 
                     }
 
                     decimal maney;
 
-                    sqlExpression = "SELECT Maney FROM Users WHERE FirstName = @loggin";
+                    sqlExpression = String.Format("SELECT Maney FROM Users WHERE FirstName = '{0}';", loggin);
 
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        maney = Convert.ToDecimal(command.ExecuteReader());
+                        maney = Convert.ToDecimal(command.ExecuteScalar());
 
                     }
                                                             
                     UserPlayer = new UserPlayer(firstname, lastname, maney, pasword);
+                    base.BasePlayer = UserPlayer;
                     break;
                 }
-                else
+                if (paswordFromBD != pasword)
                 {
                     printDell(mess10);
                 }
@@ -249,7 +201,7 @@ namespace BlackJack.BuisnesLogic.Services
         public void Update()
         {
             string connectionString = conectionString;
-            string sqlExpression = "UPDATE [PlayerDtabase].[Users] SET Maney = @Maney WHERE FirstName = @firstname";
+            string sqlExpression = String.Format("UPDATE Users SET Maney = {0} WHERE FirstName = '{1}';", UserPlayer.Maney, UserPlayer.FirstName);
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -258,6 +210,14 @@ namespace BlackJack.BuisnesLogic.Services
                 command.ExecuteNonQuery();
 
             }
+        }
+
+        public void ShowInfo()
+        {
+            printDell(mess12 + UserPlayer.FirstName);
+            printDell(mess13 + UserPlayer.LastName);
+            printDell(mess14 + UserPlayer.Password);
+            printDell(mess15 + Convert.ToString(UserPlayer.Maney));
         }
     }
 }

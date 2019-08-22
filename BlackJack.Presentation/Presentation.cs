@@ -21,6 +21,29 @@ namespace Presentation
             return Console.ReadLine();
         }
 
+        public void Start()
+        {
+            Console.WriteLine(PresentationMess6);
+
+            string command = Console.ReadLine();
+
+            if (command  == Commands.ng.ToString())
+            {
+                NewGame();
+            }
+            if (command == Commands.si.ToString())
+            {
+                UserPlayerService userPlayerService = new UserPlayerService(Print, Read);
+                userPlayerService.ShowInfo();
+            }
+        }
+
+
+
+
+
+
+
         public void NewGame()
         {
             Console.WriteLine(PresentationMess1);
@@ -29,6 +52,7 @@ namespace Presentation
 
             gameService.Game();
         }
+
         
     }
 }

@@ -17,6 +17,10 @@ namespace BlackJack.Constants
         public const string mess9 = "Write yor password";
         public const string mess10 = "Loggin or password is wrong";
         public const string mess11 = "l - to loggin \n r - registration";
+        public const string mess12 = "Youre firstname(loggin) is: ";
+        public const string mess13 = "Youte lastname is: ";
+        public const string mess14 = "Youre password is: ";
+        public const string mess15 = "You have next amount of maney: ";
         
         
 
@@ -25,5 +29,6 @@ namespace BlackJack.Constants
         public const string PresentationMess3 = "Enter your maney";
         public const string PresentationMess4 = "Write your lastname";
         public const string PresentationMess5 = "Write number of bots";
+        public const string PresentationMess6 = "ng - start playing \n si - to show info about youre accaunt";
     }
 }

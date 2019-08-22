@@ -53,21 +53,10 @@ namespace BlackJack.BuisnesLogic.Services
                 return false;
             }
         }
-        public override void SetCard(int i, Card card)
-        {
-            if ((base.BaseBotPlayers[i].Score + card.CardScore1) <= TopScore)
-            {
-                base.BaseBotPlayers[i].SetOfCards.Add(card);
-                base.BaseBotPlayers[i].Score += card.CardScore1;
-            }
-            if ((base.BaseBotPlayers[i].Score + card.CardScore1) > TopScore)
-            {
-                base.BaseBotPlayers[i].SetOfCards.Add(card);
-                base.BaseBotPlayers[i].Score += card.CardScore2;
-            }
+        
 
             
-        }
+    
 
         public string GeRandomBotName()
         {

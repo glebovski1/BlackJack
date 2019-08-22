@@ -40,15 +40,15 @@ namespace BlackJack.BuisnesLogic.Services
                     int score = j + 2;
                     if (j <= (int)CardNames.ten)
                     {
-                        baseDeck.Add(new Card(Convert.ToString((CardNames)j), Convert.ToString((CardSuits)j), score, score));
+                        baseDeck.Add(new Card(Convert.ToString((CardNames)j), Convert.ToString((CardSuits)i), score, score));
                     }
                     else if (j <= (int)CardNames.king)
                     {
-                        baseDeck.Add(new Card(Convert.ToString((CardNames)j), Convert.ToString((CardSuits)j), 10, 10));
+                        baseDeck.Add(new Card(Convert.ToString((CardNames)j), Convert.ToString((CardSuits)i), 10, 10));
                     }
                     else if (j == (int)CardNames.ace)
                     {
-                        baseDeck.Add(new Card(Convert.ToString((CardNames)j), Convert.ToString((CardSuits)j), 11, 1));
+                        baseDeck.Add(new Card(Convert.ToString((CardNames)j), Convert.ToString((CardSuits)i), 11, 1));
                     }
                 }
             }

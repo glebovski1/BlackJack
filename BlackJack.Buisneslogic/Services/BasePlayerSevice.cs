@@ -9,7 +9,7 @@ namespace BlackJack.BuisnesLogic.Services
 {
      public class BasePlayerSevice : IPlayerService
     {
-        public BasePlayer BasePlayer { get; set; }
+        private BasePlayer BasePlayer { get; set; }
 
         public BasePlayerSevice()
         {
@@ -57,11 +57,7 @@ namespace BlackJack.BuisnesLogic.Services
             return 0;
         }
 
-        public virtual decimal GetManey(BasePlayer basePlayer)
-        {
-            return 0;
-        }
-
+        
         
     }
 }

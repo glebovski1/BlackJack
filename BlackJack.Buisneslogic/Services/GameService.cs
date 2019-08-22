@@ -51,7 +51,7 @@ namespace BlackJack.BuisnesLogic.Services
         public void Game()
         {
             decimal maney = 0;
-            for (int i=0; i<10; i++)
+            for (int i=0; i<1000; i++)
             {
                 if (maney == 0)
                 {
@@ -60,15 +60,17 @@ namespace BlackJack.BuisnesLogic.Services
                 Round(ref maney);
                 
                 
-
+                
 
             }
-            ;
+            
+            Game();
+            
         }
 
         public void GetWinner(ref decimal maney)
         {
-            List<BasePlayer> basePlayers = new List<BasePlayer>();
+            var basePlayers = new List<BasePlayer>();
 
             basePlayers.Add((UserService as UserPlayerService).UserPlayer);
 
@@ -110,15 +112,13 @@ namespace BlackJack.BuisnesLogic.Services
                 basePlayers[i].Score = 0;
             }
             maney = 0;
+            (UserService as UserPlayerService).Update();
+
         }
 
         public void Round(ref decimal maney)
         {
             
-
-            
-
-
                 CroupierService.SetCard(DeckService.GetCard());
             bool playerStep = UserService.Next();
 

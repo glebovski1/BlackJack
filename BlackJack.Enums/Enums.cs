@@ -10,7 +10,9 @@ namespace BlackJack.Enums
         s,
         q,
         l,
-        r
+        r,
+        ng,
+        si
     }
 
     public enum CardNames

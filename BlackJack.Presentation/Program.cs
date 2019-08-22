@@ -17,7 +17,7 @@ namespace Presentation
                             
             presentation = new Presentation();
 
-            presentation.NewGame();
+            presentation.Start();
                 
             
         }
