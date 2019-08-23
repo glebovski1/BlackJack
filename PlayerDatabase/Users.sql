@@ -3,7 +3,7 @@
 	ID INT DEFAULT 1,
 	FirstName  NVARCHAR(20) NULL,
 LastName  NVARCHAR(20),
-Pasword  NVARCHAR(20),
-Maney MONEY
+UserPassword  NVARCHAR(20),
+UserMoney DECIMAL
 )
 

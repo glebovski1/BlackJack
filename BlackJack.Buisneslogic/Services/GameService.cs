@@ -51,19 +51,15 @@ namespace BlackJack.BuisnesLogic.Services
         public void Game()
         {
             decimal maney = 0;
-            for (int i=0; i<1000; i++)
+            for (int i=0; i<DefoultNumberOfRounds; i++)
             {
                 if (maney == 0)
                 {
                     maney = ManeyRates();
                 }
-                Round(ref maney);
-                
-                
-                
-
+                Round(ref maney);    
             }
-            
+
             Game();
             
         }
@@ -112,7 +108,7 @@ namespace BlackJack.BuisnesLogic.Services
                 basePlayers[i].Score = 0;
             }
             maney = 0;
-            (UserService as UserPlayerService).Update();
+            (UserService as UserPlayerService).UpdateMoney();
 
         }
 

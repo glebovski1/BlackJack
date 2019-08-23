@@ -11,8 +11,11 @@ namespace BlackJack.Constants
         public const int BotStartManey = 500;
         public const int DeckFactor = 10;
         public const int BotRateManey = 100;
+        public const int DefoultNumberOfRounds = 10;
 
-        public const string conectionString = "Data Source=(localdb)\\ProjectsV13;" +
+
+
+        public const string connectionString = "Data Source=(localdb)\\ProjectsV13;" +
             "Initial Catalog = PlayerDatabase;" +
             "Integrated Security = True; Connect Timeout = 30;" +
             "Encrypt=False;" +

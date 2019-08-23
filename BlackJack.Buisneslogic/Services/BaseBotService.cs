@@ -9,7 +9,7 @@ namespace BlackJack.BuisnesLogic.Services
 {
     public class BaseBotService : IBotService
     {
-        public List<BasePlayer> BaseBotPlayers { get; set; }
+        protected List<BasePlayer> BaseBotPlayers { get; set; }
 
         public BaseBotService()
         {

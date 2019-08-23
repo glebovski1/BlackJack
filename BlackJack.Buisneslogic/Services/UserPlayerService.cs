@@ -7,11 +7,13 @@ using BlackJack.Enums;
 using BlackJack.BuisnesLogic.Delegates;
 using static BlackJack.Constants.Messages;
 using BlackJack.BuisnesLogic.Services.Interfaces;
-using System.Data.SqlClient;
+using BlackJack.DataAccsess.Repositories.Interfaces;
+using BlackJack.DataAccsess.Repositories;
+
 
 namespace BlackJack.BuisnesLogic.Services
 {
-    public class UserPlayerService : BasePlayerSevice, IUserDBService
+    public class UserPlayerService : BasePlayerSevice
     {
         public UserPlayer UserPlayer { get; set; }
         public PrintDell printDell { get; private set; }
@@ -22,6 +24,13 @@ namespace BlackJack.BuisnesLogic.Services
             printDell = _printDell;
 
             readDell = _readDell;
+
+            Menu();
+            
+        }
+
+        private void Menu()
+        {
             printDell(mess11);
 
             string command = readDell();
@@ -35,7 +44,6 @@ namespace BlackJack.BuisnesLogic.Services
             {
                 Registartion();
             }
-            
         }
 
         public override decimal GetManey()
@@ -92,65 +100,41 @@ namespace BlackJack.BuisnesLogic.Services
 
         public void Logging()
         {
+            UserPlayer userPlayer;
+
+            IUserRepository userRepository = new UserRepository();
+
             string loggin;
-            string pasword;
+
+            string password;
+
             string paswordFromBD;
-            string connectionString;
+
+            
+
             printDell(PresentationMess2);
-            for (int i = 0; i < 10; i++)
+
+            loggin = readDell();
+
+            int ID = userRepository.GetID(loggin);
+
+            paswordFromBD = userRepository.GetPassword(ID);
+
+            printDell(mess9);
+
+            password = readDell();
+
+            if (password == paswordFromBD)
             {
-                loggin = readDell();
-                printDell(mess9);
-                pasword = readDell();
-                connectionString = conectionString;
-                string sqlExpression = String.Format("SELECT Pasword FROM Users WHERE FirstName = '{0}';", loggin);
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    paswordFromBD = Convert.ToString(command.ExecuteScalar());
-
-                }
-                if (paswordFromBD == pasword)
-                {
-                    string firstname = loggin;
-
-                    
-
-                    string lastname;
-
-                    sqlExpression = String.Format("SELECT LastName FROM Users WHERE FirstName = '{0}';", loggin);
-
-                    using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-                        SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        lastname = Convert.ToString(command.ExecuteScalar());
-
-                    }
-
-                    decimal maney;
-
-                    sqlExpression = String.Format("SELECT Maney FROM Users WHERE FirstName = '{0}';", loggin);
-
-                    using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-                        SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        maney = Convert.ToDecimal(command.ExecuteScalar());
-
-                    }
-                                                            
-                    UserPlayer = new UserPlayer(firstname, lastname, maney, pasword);
-                    base.BasePlayer = UserPlayer;
-                    break;
-                }
-                if (paswordFromBD != pasword)
-                {
-                    printDell(mess10);
-                }
+                userPlayer = userRepository.GetUserDB(ID);
+                base.BasePlayer = userPlayer;
             }
+
+            if (password != paswordFromBD)
+            {
+                printDell(mess10);
+            }
+            
 
 
         }
@@ -163,7 +147,9 @@ namespace BlackJack.BuisnesLogic.Services
 
             decimal maney;
 
-            string password;
+            string password1;
+
+            string password2;
 
             printDell(PresentationMess2);
 
@@ -179,37 +165,37 @@ namespace BlackJack.BuisnesLogic.Services
 
             printDell(mess9);
 
-            password = readDell();
+            password1 = readDell();
 
-            UserPlayer = new UserPlayer(firstname, lastname, maney, password);
+            printDell(mess16);
 
-            base.BasePlayer = UserPlayer;
-                       
-            string connectionString = conectionString;
+            password2 = readDell();
 
-            string sqlExpression = String.Format("INSERT INTO Users (FirstName, LastName, Pasword, Maney) VALUES ('{0}', '{1}', '{2}', {3})", firstname, lastname, password, maney);
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if (password1 == password2)
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                int number = command.ExecuteNonQuery();
+                UserPlayer = new UserPlayer(firstname, lastname, maney, password1);
+
+                base.BasePlayer = UserPlayer;
+
+                IUserRepository userRepository = new UserRepository();
+
+                userRepository.SetUserDB(UserPlayer);
+
 
             }
+
+
+                       
+            
         }
 
-        public void Update()
+        public void UpdateMoney()
         {
-            string connectionString = conectionString;
-            string sqlExpression = String.Format("UPDATE Users SET Maney = {0} WHERE FirstName = '{1}';", UserPlayer.Maney, UserPlayer.FirstName);
+            UserRepository userRepository = new UserRepository();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();
+            int id = Convert.ToInt32(userRepository.GetID(UserPlayer.FirstName));
 
-            }
+            userRepository.UpdateManey(id, UserPlayer.Maney);
         }
 
         public void ShowInfo()

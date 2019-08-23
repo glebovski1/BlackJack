@@ -9,7 +9,7 @@ namespace BlackJack.BuisnesLogic.Services
 {
      public class BasePlayerSevice : IPlayerService
     {
-        private BasePlayer BasePlayer { get; set; }
+        protected BasePlayer BasePlayer { get; set; }
 
         public BasePlayerSevice()
         {

@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
@@ -11,9 +10,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlackJack.Constants\BlackJack.Constants.csproj" />
-    <ProjectReference Include="..\BlackJack.DataAccsess\BlackJack.DataAccsess.csproj" />
     <ProjectReference Include="..\BlackJack.Data\BlackJack.Data.csproj" />
     <ProjectReference Include="..\BlackJack.Enums\BlackJack.Enums.csproj" />
+    <ProjectReference Include="..\PlayerDatabase\PlayerDatabase.sqlproj" />
   </ItemGroup>
 
 </Project>

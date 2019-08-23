@@ -4,12 +4,8 @@ using System.Text;
 
 namespace BlackJack.BuisnesLogic.Services.Interfaces
 {
-    interface IUserDBService
+    interface ICroupierSrvice
     {
-        void Logging();
-
-        void Registartion();
-
-        void Update();
+        
     }
 }

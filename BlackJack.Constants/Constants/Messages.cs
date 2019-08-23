@@ -21,6 +21,7 @@ namespace BlackJack.Constants
         public const string mess13 = "Youte lastname is: ";
         public const string mess14 = "Youre password is: ";
         public const string mess15 = "You have next amount of maney: ";
+        public const string mess16 = "Confirm youre password";
         
         
 
