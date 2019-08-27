@@ -8,7 +8,7 @@ namespace BlackJack.BuisnesLogic.Services
 {
     public class DeckService
     {
-        public List<Card> Deck;
+        protected List<Card> Deck;
 
         public DeckService(int factor)
         {

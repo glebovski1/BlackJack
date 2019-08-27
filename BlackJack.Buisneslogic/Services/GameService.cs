@@ -9,22 +9,23 @@ using static BlackJack.Constants.Constants;
 using BlackJack.Data;
 
 using BlackJack.BuisnesLogic.Services.Interfaces;
+using System.Linq;
 
 namespace BlackJack.BuisnesLogic.Services
 {
     public class GameService
     {
-        IPlayerService UserService { get; set; }
-        
-        IPlayerService CroupierService { get; set; }
+        private IPlayerService UserService { get; set; }
 
-        IBotService BotService { get; set; }   
+        private ICroupierSrvice CroupierService { get; set; }
 
-        DeckService DeckService { get; set; }
+        private IBotService BotService { get; set; }
 
-        public PrintDell printDell;
+        protected DeckService DeckService { get; set; }
 
-        public ReadDell readDell;
+        protected PrintDell printDell;
+
+        protected ReadDell readDell;
 
         
         public GameService(ReadDell _readDell, PrintDell _printDell)
@@ -44,78 +45,79 @@ namespace BlackJack.BuisnesLogic.Services
             DeckService = new DeckService(DeckFactor);
 
             BotService = new BotService(botNumber);
+
+            printDell(mess17);
         }
-
-
-
         public void Game()
         {
-            decimal maney = 0;
+            decimal money = 0;
             for (int i=0; i<DefoultNumberOfRounds; i++)
             {
-                if (maney == 0)
+                if (money == 0)
                 {
-                    maney = ManeyRates();
+                    money = MoneyRates();
                 }
-                Round(ref maney);    
+                Round(ref money);    
             }
 
             Game();
             
         }
 
-        public void GetWinner(ref decimal maney)
+        public void GetWinner(ref decimal money)
         {
-            var basePlayers = new List<BasePlayer>();
-
-            basePlayers.Add((UserService as UserPlayerService).UserPlayer);
-
-            basePlayers.Add((CroupierService as CroupierService).Croupier);
-
-            for (int i=0; i< (BotService as BotService).BotPlayers.Count; i++)
+            if ((UserService.GetScore() >= (BotService as BaseBotService).GetBestScore()) && (UserService.GetScore() >= (CroupierService as BasePlayerSevice).GetScore()))
             {
-                basePlayers.Add((BotService as BotService).BotPlayers[i]);
+                
+                    (UserService as UserPlayerService).SetMoney(money);
+
+                    printDell(mess6 + " " + (UserService as UserPlayerService).UserPlayer.FirstName);
+                
+
+               
+
             }
 
-            for(int i=1; i < basePlayers.Count; i++)
+            if ((UserService.GetScore() < (BotService as BaseBotService).GetBestScore()) && ((BotService as BaseBotService).GetBestScore() > (CroupierService as BasePlayerSevice).GetScore()))
             {
-                BasePlayer temp;
+                
+                    int bestBotIndex = (BotService as BaseBotService).GetBestScoreIndex();
 
-                if (basePlayers[i-1].Score < basePlayers[i].Score)
-                {
-                    temp = basePlayers[i - 1];
+                    BasePlayer botPlayer = (BotService as BaseBotService).GetBotPlayer(bestBotIndex);
 
-                    basePlayers[i - 1] = basePlayers[i];
+                    (botPlayer as BotPlayer).Money += money;
 
-                    basePlayers[i] = temp;
-
-                    i = 0;
-                }
+                    printDell(mess6 + " " + botPlayer.FirstName);
+                
+                    
+            }
+             if (((CroupierService as BasePlayerSevice).GetScore() > UserService.GetScore()) && ((CroupierService as BasePlayerSevice).GetScore() > (BotService as BaseBotService).GetBestScore()))
+            {
+                printDell(mess6 + " " + (CroupierService as BasePlayerSevice).GetName());
             }
 
-            printDell(mess6 + " " + basePlayers[0].FirstName);
-            if (basePlayers[0] is BotPlayer)
+
+            UserService.SetScore(0);
+
+            (CroupierService as BasePlayerSevice).SetScore(0);
+
+            for(int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
             {
-                (basePlayers[0] as BotPlayer).Maney += maney;
-            }
-            if (basePlayers[0] is UserPlayer)
-            {
-                (basePlayers[0] as UserPlayer).Maney += maney;
+                (BotService as BaseBotService).SetScore(i,0);
+                
             }
 
-            for(int i=0; i< basePlayers.Count; i++)
-            {
-                basePlayers[i].Score = 0;
-            }
-            maney = 0;
+            money = 0;
+
             (UserService as UserPlayerService).UpdateMoney();
 
         }
 
-        public void Round(ref decimal maney)
+        public void Round(ref decimal money)
         {
             
-                CroupierService.SetCard(DeckService.GetCard());
+                (CroupierService as CroupierService).SetCard(DeckService.GetCard());
+
             bool playerStep = UserService.Next();
 
                 if (playerStep)
@@ -125,20 +127,14 @@ namespace BlackJack.BuisnesLogic.Services
                 }
                 if (!playerStep)
                 {
-                    GetWinner(ref maney);
+                    GetWinner(ref money);
                
                 }
 
-                BotAction(ref maney);
+                BotAction(ref money);
                 
-                
-            
-            
-
-
-
         }
-        public void BotAction(ref decimal maney)
+        public void BotAction(ref decimal money)
         {
             for (int i = 0; i < (BotService as BotService).BotPlayers.Count; i++)
             {
@@ -148,21 +144,21 @@ namespace BlackJack.BuisnesLogic.Services
                 }
                 if (!BotService.Next(i))
                 {
-                    GetWinner(ref maney);
+                    GetWinner(ref money);
                      
                 }
 
             }
             
         }
-        public decimal ManeyRates()
+        public decimal MoneyRates()
         {
             decimal maney=0;
 
-            maney += UserService.GetManey();
+            maney += UserService.GetMoney();
             for (int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
             {
-                maney += BotService.GetManey(i);
+                maney += BotService.GetMoney(i);
             }
             return maney;
             

@@ -11,13 +11,15 @@ namespace BlackJack.BuisnesLogic.Services.Interfaces
 
          int GetScore();
 
-         void SetScore(int x);
+         void SetScore(int score);
                
          void SetCard(Card card);
                       
          bool Next();
         
-         decimal GetManey();
+         decimal GetMoney();
+
+       
 
         
 

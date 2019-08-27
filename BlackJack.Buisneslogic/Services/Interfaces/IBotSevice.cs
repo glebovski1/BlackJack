@@ -7,17 +7,17 @@ namespace BlackJack.BuisnesLogic.Services.Interfaces
 {
     interface IBotService
     {
-        string GetName(int i);
+        string GetName(int botIndex);
 
-        int GetScore(int i);
+        int GetScore(int botIndex);
 
-        void SetScore(int i,int x);
+        void SetScore(int botIndexi, int score);
 
-        void SetCard(int i, Card card);
+        void SetCard(int botIndex, Card card);
         
-        bool Next(int i);
+        bool Next(int botIndex);
         
-        decimal GetManey(int i);
+        decimal GetMoney(int botIndex);
 
         
     }

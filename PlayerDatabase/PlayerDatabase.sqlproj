@@ -63,4 +63,7 @@
   <ItemGroup>
     <Build Include="Users.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="PlayerDatabase.publish.xml" />
+  </ItemGroup>
 </Project>

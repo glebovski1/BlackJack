@@ -36,6 +36,10 @@ namespace Presentation
                 UserPlayerService userPlayerService = new UserPlayerService(Print, Read);
                 userPlayerService.ShowInfo();
             }
+            if ((command != Commands.ng.ToString()) && (command != Commands.si.ToString()))
+            {
+                Console.WriteLine(PresentationMess7);
+            }
         }
 
 

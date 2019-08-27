@@ -16,8 +16,8 @@ namespace BlackJack.BuisnesLogic.Services
     public class UserPlayerService : BasePlayerSevice
     {
         public UserPlayer UserPlayer { get; set; }
-        public PrintDell printDell { get; private set; }
-        public ReadDell readDell { get; private set; }
+        protected PrintDell printDell { get; private set; }
+        protected ReadDell readDell { get; private set; }
 
         public UserPlayerService( PrintDell _printDell, ReadDell _readDell)
         {
@@ -46,14 +46,30 @@ namespace BlackJack.BuisnesLogic.Services
             }
         }
 
-        public override decimal GetManey()
+        public override decimal GetMoney()
         {
             printDell(mess8);
-            decimal maney = Convert.ToDecimal(readDell());
+            decimal money = 0;
+            try
+            {
+                
+                money = Convert.ToDecimal(readDell());
 
-            UserPlayer.Maney -= maney;
+            }
+            catch
+            {
+                printDell(PresentationMess7);
 
-            return maney;
+                GetMoney();
+            }
+            finally
+            {
+                UserPlayer.Money -= money;
+            }
+
+            return money;
+
+            
         }
         
         public override bool Next()
@@ -72,21 +88,19 @@ namespace BlackJack.BuisnesLogic.Services
 
                 }
                  if (command == Commands.s.ToString())
-                {
+                 {
 
                     return false;
-                }
+                 }
 
                  if (command == Commands.q.ToString())
-                {
+                 {
                     break;
-                }
+                 }
 
-                else
-                {
-                    printDell("Not valid command");
-                    i = 0;
-                }
+                printDell(PresentationMess7);
+                 i = 0;
+                
                 
             }
             return false;
@@ -100,7 +114,7 @@ namespace BlackJack.BuisnesLogic.Services
 
         public void Logging()
         {
-            UserPlayer userPlayer;
+            
 
             IUserRepository userRepository = new UserRepository();
 
@@ -126,8 +140,8 @@ namespace BlackJack.BuisnesLogic.Services
 
             if (password == paswordFromBD)
             {
-                userPlayer = userRepository.GetUserDB(ID);
-                base.BasePlayer = userPlayer;
+                UserPlayer = userRepository.GetUserDB(ID);
+                base.BasePlayer = UserPlayer;
             }
 
             if (password != paswordFromBD)
@@ -195,7 +209,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             int id = Convert.ToInt32(userRepository.GetID(UserPlayer.FirstName));
 
-            userRepository.UpdateManey(id, UserPlayer.Maney);
+            userRepository.UpdateManey(id, UserPlayer.Money);
         }
 
         public void ShowInfo()
@@ -203,7 +217,12 @@ namespace BlackJack.BuisnesLogic.Services
             printDell(mess12 + UserPlayer.FirstName);
             printDell(mess13 + UserPlayer.LastName);
             printDell(mess14 + UserPlayer.Password);
-            printDell(mess15 + Convert.ToString(UserPlayer.Maney));
+            printDell(mess15 + Convert.ToString(UserPlayer.Money));
+        }
+
+        public void SetMoney(decimal money)
+        {
+            UserPlayer.Money += money;
         }
     }
 }

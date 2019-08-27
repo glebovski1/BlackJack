@@ -8,13 +8,13 @@ namespace BlackJack.Data
     {
         
 
-        public decimal Maney { get; set; }
+        public decimal Money { get; set; }
 
-        public BotPlayer (string firstname, decimal maney) : base(firstname)
+        public BotPlayer (string firstname, decimal money) : base(firstname)
         {
             
 
-            Maney = maney;
+            Money = money;
         }
     }
 }

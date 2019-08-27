@@ -39,7 +39,7 @@ namespace BlackJack.BuisnesLogic.Services
                 BasePlayer.SetOfCards.Add(card);
                 BasePlayer.Score += card.CardScore1;
             }
-            if ((BasePlayer.Score + card.CardScore1) > TopScore)
+            else if ((BasePlayer.Score + card.CardScore1) > TopScore)
             {
                 BasePlayer.SetOfCards.Add(card);
                 BasePlayer.Score += card.CardScore2;
@@ -52,12 +52,11 @@ namespace BlackJack.BuisnesLogic.Services
             return true;
         }
         
-        public virtual decimal GetManey()
+        public virtual decimal GetMoney()
         {
             return 0;
         }
 
-        
-        
+       
     }
 }

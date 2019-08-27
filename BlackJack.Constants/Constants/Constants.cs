@@ -8,9 +8,9 @@ namespace BlackJack.Constants
     {
         public const int TopScore = 21;
         public const int BotTopScore = 16;
-        public const int BotStartManey = 500;
+        public const int BotStartMoney = 500;
         public const int DeckFactor = 10;
-        public const int BotRateManey = 100;
+        public const int BotRateMoney = 100;
         public const int DefoultNumberOfRounds = 10;
 
 

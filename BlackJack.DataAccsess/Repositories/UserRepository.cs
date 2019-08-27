@@ -61,13 +61,20 @@ namespace BlackJack.DataAccsess.Repositories
 
             SqlDataReader read = command.ExecuteReader();
 
-            user = new UserPlayer(Convert.ToString(read[1]), Convert.ToString(read[2]), Convert.ToDecimal(read[4]), Convert.ToString(read[3]));
+            if (read.Read())
+            {
+                user = new UserPlayer(read.GetString(1), read.GetString(1), read.GetDecimal(4), read.GetString(3));
 
+                connection.Close();
+
+                return user;
+            }
+
+            return null;
+           
             
 
-            connection.Close();
-
-            return user;
+            
         }
 
         public void SetUserDB(UserPlayer user)
@@ -76,11 +83,11 @@ namespace BlackJack.DataAccsess.Repositories
 
             string lastname = user.LastName;
 
-            decimal money = user.Maney;
+            decimal money = user.Money;
 
             string password = user.Password;
 
-            string sqlExpression = String.Format("INSERT INTO Users (FirstName, LastName, UserPassword, UserMoney) VALUES ('{0}','{1}',{2},'{3}');", firstname, lastname, money, password);
+            string sqlExpression = String.Format("INSERT INTO Users (FirstName, LastName, UserPassword, UserMoney) VALUES ('{0}','{1}',{2},'{3}');", firstname, lastname, password, money);
 
             SqlConnection connection = new SqlConnection(connectionString);
 

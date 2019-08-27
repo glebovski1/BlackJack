@@ -1,9 +1,10 @@
 ﻿CREATE TABLE Users
 	(
-	ID INT DEFAULT 1,
+	ID INT  IDENTITY,
 	FirstName  NVARCHAR(20) NULL,
 LastName  NVARCHAR(20),
 UserPassword  NVARCHAR(20),
-UserMoney DECIMAL
+UserMoney DECIMAL, 
+    CONSTRAINT [PK_Users] PRIMARY KEY ([ID])
 )
 

@@ -4,6 +4,7 @@ using System.Text;
 using BlackJack.BuisnesLogic.Services.Interfaces;
 using BlackJack.Data;
 using static BlackJack.Constants.Constants;
+using System.Linq;
 
 namespace BlackJack.BuisnesLogic.Services
 {
@@ -15,47 +16,75 @@ namespace BlackJack.BuisnesLogic.Services
         {
             BaseBotPlayers = new List<BasePlayer>();
         }
-        public virtual decimal GetManey(int i)
+        public virtual decimal GetMoney(int botIndex)
         {
-            decimal maney = BotRateManey;
+            decimal maney = BotRateMoney;
                         
             return maney;
         }
 
-        public string GetName(int i)
+        public string GetName(int botIndex)
         {
-            return BaseBotPlayers[i].FirstName;
+            return BaseBotPlayers[botIndex].FirstName;
         }
 
-        public int GetScore(int i)
+        public BasePlayer GetBotPlayer(int index)
         {
-            return BaseBotPlayers[i].Score;
+            BasePlayer basePlayer = BaseBotPlayers[index];
+
+            return basePlayer;
         }
 
-        public virtual bool Next(int i)
+        public int GetScore(int botIndex)
+        {
+            return BaseBotPlayers[botIndex].Score;
+        }
+
+        public int GetBestScore()
+        {
+            var maxScore = BaseBotPlayers.Max(p => p.Score);
+
+                return maxScore;
+        }
+
+        public int GetBestScoreIndex()
+        {
+            var maxScore = BaseBotPlayers.Max(p => p.Score);
+
+            for (int i=0; i<BaseBotPlayers.Count; i++)
+            {
+                if (BaseBotPlayers[i].Score == maxScore)
+                {
+                    return i;
+                }
+               
+            }
+            return 0;
+        }
+        public virtual bool Next(int botIndex)
         {
             return true;
         }
 
-        public void SetCard(int i, Card card)
+        public void SetCard(int botIndex, Card card)
         {
-            if ((BaseBotPlayers[i].Score + card.CardScore1) <= TopScore)
+            if ((BaseBotPlayers[botIndex].Score + card.CardScore1) <= TopScore)
             {
-                BaseBotPlayers[i].SetOfCards.Add(card);
-                BaseBotPlayers[i].Score += card.CardScore1;
+                BaseBotPlayers[botIndex].SetOfCards.Add(card);
+                BaseBotPlayers[botIndex].Score += card.CardScore1;
             }
-            if ((BaseBotPlayers[i].Score + card.CardScore1) > TopScore)
+            else if ((BaseBotPlayers[botIndex].Score + card.CardScore1) > TopScore)
             {
-                BaseBotPlayers[i].SetOfCards.Add(card);
-                BaseBotPlayers[i].Score += card.CardScore2;
+                BaseBotPlayers[botIndex].SetOfCards.Add(card);
+                BaseBotPlayers[botIndex].Score += card.CardScore2;
             }
         }
 
         
 
-        public void SetScore(int i, int x)
+        public void SetScore(int botIndex, int x)
         {
-            BaseBotPlayers[i].Score = x;
+            BaseBotPlayers[botIndex].Score = x;
         }
     }
 }

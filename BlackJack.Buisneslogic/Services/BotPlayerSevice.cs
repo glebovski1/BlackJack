@@ -22,7 +22,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             for (int i=0; i<numberofbots; i++)
             {
-                BotPlayers.Add(new BotPlayer(GeRandomBotName(), BotStartManey));
+                BotPlayers.Add(new BotPlayer(GetRandomBotName(), BotStartMoney));
             }
 
             for (int i=0; i<BotPlayers.Count; i++)
@@ -34,17 +34,17 @@ namespace BlackJack.BuisnesLogic.Services
             
 
         }
-        public override decimal GetManey(int i)
+        public override decimal GetMoney(int botIndex)
         {
-            decimal maney = BotRateManey;
+            decimal money = BotRateMoney;
 
-            BotPlayers[i].Maney -= maney;
+            BotPlayers[botIndex].Money -= money;
 
-            return maney;
+            return money;
         }
-        public override bool Next(int i)
+        public override bool Next(int botIndex)
         {
-            if (base.BaseBotPlayers[i].Score < BotTopScore)
+            if (base.BaseBotPlayers[botIndex].Score < BotTopScore)
             {
                 return true;
             }
@@ -58,7 +58,7 @@ namespace BlackJack.BuisnesLogic.Services
             
     
 
-        public string GeRandomBotName()
+        public string GetRandomBotName()
         {
             Random random = new Random();
 
