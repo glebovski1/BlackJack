@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using BlackJack.BuisnesLogic.Services.Interfaces;
 using BlackJack.Data;
-using static BlackJack.Constants.Constants;
+using static BlackJack.Constants.Constants.BusinessRules;
 
 namespace BlackJack.BuisnesLogic.Services
 {

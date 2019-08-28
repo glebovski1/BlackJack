@@ -8,7 +8,7 @@ namespace BlackJack.BuisnesLogic.Services
 {
     public class CroupierService : BasePlayerSevice, ICroupierSrvice
     {
-        public Сroupier Croupier { get; set; }
+        protected Сroupier Croupier { get; set; }
 
         public CroupierService() : base()
         {

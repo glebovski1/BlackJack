@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using BlackJack.BuisnesLogic.Services.Interfaces;
 using BlackJack.Data;
-using static BlackJack.Constants.Constants;
+using BlackJack.Constants;
 using System.Linq;
+using static BlackJack.Constants.Constants.BusinessRules;
+using static BlackJack.Constants.Constants.Messages;
 
 namespace BlackJack.BuisnesLogic.Services
 {
@@ -18,7 +18,7 @@ namespace BlackJack.BuisnesLogic.Services
         }
         public virtual decimal GetMoney(int botIndex)
         {
-            decimal maney = BotRateMoney;
+            decimal maney =  BotRateMoney;
                         
             return maney;
         }

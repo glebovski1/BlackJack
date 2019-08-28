@@ -4,7 +4,8 @@ using System.Text;
 
 using BlackJack.BuisnesLogic.Delegates;
 using BlackJack.Enums;
-using static BlackJack.Constants.Messages;
+
+using static BlackJack.Constants.Constants.BusinessRules;
 using static BlackJack.Constants.Constants;
 using BlackJack.Data;
 
@@ -25,7 +26,7 @@ namespace BlackJack.BuisnesLogic.Services
 
         protected PrintDell printDell;
 
-        protected ReadDell readDell;
+        protected ReadDell readDell;                               
 
         
         public GameService(ReadDell _readDell, PrintDell _printDell)
@@ -38,7 +39,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             UserService = new UserPlayerService(printDell, readDell);
 
-            printDell(PresentationMess5);
+            printDell(Messages.MessAskBots);
 
             int botNumber = Convert.ToInt32(readDell());
 
@@ -46,12 +47,12 @@ namespace BlackJack.BuisnesLogic.Services
 
             BotService = new BotService(botNumber);
 
-            printDell(mess17);
+            printDell(Messages.MessMenu);
         }
         public void Game()
         {
             decimal money = 0;
-            for (int i=0; i<DefoultNumberOfRounds; i++)
+            for (int i=0; i< DefaultNumberOfRounds; i++)
             {
                 if (money == 0)
                 {
@@ -71,7 +72,7 @@ namespace BlackJack.BuisnesLogic.Services
                 
                     (UserService as UserPlayerService).SetMoney(money);
 
-                    printDell(mess6 + " " + (UserService as UserPlayerService).UserPlayer.FirstName);
+                    printDell(Messages.MessWinner + " " + (UserService as UserPlayerService).UserPlayer.FirstName);
                 
 
                
@@ -87,13 +88,13 @@ namespace BlackJack.BuisnesLogic.Services
 
                     (botPlayer as BotPlayer).Money += money;
 
-                    printDell(mess6 + " " + botPlayer.FirstName);
+                    printDell(Messages.MessWinner + " " + botPlayer.FirstName);
                 
                     
             }
              if (((CroupierService as BasePlayerSevice).GetScore() > UserService.GetScore()) && ((CroupierService as BasePlayerSevice).GetScore() > (BotService as BaseBotService).GetBestScore()))
             {
-                printDell(mess6 + " " + (CroupierService as BasePlayerSevice).GetName());
+                printDell(Messages.MessWinner + " " + (CroupierService as BasePlayerSevice).GetName());
             }
 
 

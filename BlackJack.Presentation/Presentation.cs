@@ -4,7 +4,7 @@ using BlackJack.BuisnesLogic.Delegates;
 using BlackJack.Constants;
 using BlackJack.Enums;
 using static BlackJack.Constants.Constants;
-using static BlackJack.Constants.Messages;
+
 
 namespace Presentation
 {
@@ -23,7 +23,7 @@ namespace Presentation
 
         public void Start()
         {
-            Console.WriteLine(PresentationMess6);
+            Console.WriteLine(Messages.MessWelcome);
 
             string command = Console.ReadLine();
 
@@ -38,7 +38,7 @@ namespace Presentation
             }
             if ((command != Commands.ng.ToString()) && (command != Commands.si.ToString()))
             {
-                Console.WriteLine(PresentationMess7);
+                Console.WriteLine(Messages.MessError);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Presentation
 
         public void NewGame()
         {
-            Console.WriteLine(PresentationMess1);
+            Console.WriteLine(Messages.MessWelcome);
 
             GameService gameService = new GameService( Read, Print);
 

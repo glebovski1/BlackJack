@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
 using BlackJack.Data;
@@ -14,7 +15,8 @@ namespace BlackJack.DataAccsess.Repositories
         {
             string sqlExpression = String.Format("SELECT Id FROM Users WHERE FirstName = '{0}';", name);
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
             connection.Open();
 
@@ -31,7 +33,7 @@ namespace BlackJack.DataAccsess.Repositories
         {
             string sqlExpression = String.Format("SELECT UserPassword FROM Users WHERE ID = {0};", id);
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
             connection.Open();
 
@@ -53,7 +55,7 @@ namespace BlackJack.DataAccsess.Repositories
 
             string sqlExpression = String.Format("SELECT * FROM Users Where ID = {0};",id);
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
             connection.Open();
 
@@ -89,7 +91,7 @@ namespace BlackJack.DataAccsess.Repositories
 
             string sqlExpression = String.Format("INSERT INTO Users (FirstName, LastName, UserPassword, UserMoney) VALUES ('{0}','{1}',{2},'{3}');", firstname, lastname, password, money);
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
             connection.Open();
 
@@ -107,7 +109,7 @@ namespace BlackJack.DataAccsess.Repositories
         {
             string sqlExpression = String.Format("UPDATE Users SET UserMoney={0} WHERE ID={1};", money, id);
 
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
 
             connection.Open();
 

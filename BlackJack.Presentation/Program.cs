@@ -4,7 +4,8 @@ using BlackJack.BuisnesLogic.Delegates;
 using BlackJack.Constants;
 using BlackJack.Enums;
 using static BlackJack.Constants.Constants;
-using static BlackJack.Constants.Messages;
+
+using Microsoft.Extensions.Configuration;
 
 namespace Presentation
 {
@@ -13,6 +14,8 @@ namespace Presentation
         
         static void Main(string[] args)
         {
+           
+            
             Presentation presentation;
                             
             presentation = new Presentation();

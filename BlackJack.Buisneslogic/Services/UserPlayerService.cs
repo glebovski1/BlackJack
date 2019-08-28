@@ -5,7 +5,7 @@ using BlackJack.Data;
 using static BlackJack.Constants.Constants;
 using BlackJack.Enums;
 using BlackJack.BuisnesLogic.Delegates;
-using static BlackJack.Constants.Messages;
+
 using BlackJack.BuisnesLogic.Services.Interfaces;
 using BlackJack.DataAccsess.Repositories.Interfaces;
 using BlackJack.DataAccsess.Repositories;
@@ -31,7 +31,7 @@ namespace BlackJack.BuisnesLogic.Services
 
         private void Menu()
         {
-            printDell(mess11);
+            printDell(Messages.MessLoggOrReg);
 
             string command = readDell();
 
@@ -48,7 +48,7 @@ namespace BlackJack.BuisnesLogic.Services
 
         public override decimal GetMoney()
         {
-            printDell(mess8);
+            printDell(Messages.MessRateAsking);
             decimal money = 0;
             try
             {
@@ -58,7 +58,7 @@ namespace BlackJack.BuisnesLogic.Services
             }
             catch
             {
-                printDell(PresentationMess7);
+                printDell(Messages.MessError);
 
                 GetMoney();
             }
@@ -76,7 +76,7 @@ namespace BlackJack.BuisnesLogic.Services
         {
 
 
-            printDell(mess2);
+            printDell(Messages.MessAskingCommand);
             for (int i = 0; i < 1; i++)
             {
                 
@@ -98,7 +98,7 @@ namespace BlackJack.BuisnesLogic.Services
                     break;
                  }
 
-                printDell(PresentationMess7);
+                printDell(Messages.MessError);
                  i = 0;
                 
                 
@@ -109,7 +109,7 @@ namespace BlackJack.BuisnesLogic.Services
         public override void SetCard(Card card)
         {
             base.SetCard(card);
-            printDell(mess5 + " " + card.CardSuit + " " + card.CardName);
+            printDell(Messages.MesYouGet + " " + card.CardSuit + " " + card.CardName);
         }
 
         public void Logging()
@@ -126,7 +126,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             
 
-            printDell(PresentationMess2);
+            printDell(Messages.MessFirstName);
 
             loggin = readDell();
 
@@ -134,7 +134,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             paswordFromBD = userRepository.GetPassword(ID);
 
-            printDell(mess9);
+            printDell(Messages.MessAskingPassword);
 
             password = readDell();
 
@@ -146,7 +146,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             if (password != paswordFromBD)
             {
-                printDell(mess10);
+                printDell(Messages.MessError);
             }
             
 
@@ -159,35 +159,35 @@ namespace BlackJack.BuisnesLogic.Services
 
             string lastname;
 
-            decimal maney;
+            decimal money;
 
             string password1;
 
             string password2;
 
-            printDell(PresentationMess2);
+            printDell(Messages.MessAskName);
 
             firstname = readDell();
 
-            printDell(PresentationMess4);
+            printDell(Messages.MessLastname);
 
             lastname = readDell();
 
-            printDell(PresentationMess3);
+            printDell(Messages.MessAskMoney);
 
-            maney = Convert.ToDecimal(readDell());
+            money = Convert.ToDecimal(readDell());
 
-            printDell(mess9);
+            printDell(Messages.MessAskingPassword);
 
             password1 = readDell();
 
-            printDell(mess16);
+            printDell(Messages.MessPassConfirm);
 
             password2 = readDell();
 
             if (password1 == password2)
             {
-                UserPlayer = new UserPlayer(firstname, lastname, maney, password1);
+                UserPlayer = new UserPlayer(firstname, lastname, money, password1);
 
                 base.BasePlayer = UserPlayer;
 
@@ -214,10 +214,10 @@ namespace BlackJack.BuisnesLogic.Services
 
         public void ShowInfo()
         {
-            printDell(mess12 + UserPlayer.FirstName);
-            printDell(mess13 + UserPlayer.LastName);
-            printDell(mess14 + UserPlayer.Password);
-            printDell(mess15 + Convert.ToString(UserPlayer.Money));
+            printDell(Messages.MessFirstName + UserPlayer.FirstName);
+            printDell(Messages.MessLastname + UserPlayer.LastName);
+            printDell(Messages.MessPassword + UserPlayer.Password);
+            printDell(Messages.MessMoney + Convert.ToString(UserPlayer.Money));
         }
 
         public void SetMoney(decimal money)

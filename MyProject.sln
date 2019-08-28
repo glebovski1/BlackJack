@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Data", "BlackJack.Data\BlackJack.Data.csproj", "{5349576D-B93F-43E7-A667-0774D8E42B21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Entity", "BlackJack.Data\BlackJack.Entity.csproj", "{5349576D-B93F-43E7-A667-0774D8E42B21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Constants", "BlackJack.Constants\BlackJack.Constants.csproj", "{B49852F2-3033-415F-A79C-761B069195E9}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.Presentation", "B
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PlayerDatabase", "PlayerDatabase\PlayerDatabase.sqlproj", "{15645DB6-34AE-41C5-B864-C16EF2CCECD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackJack.DataAccsess", "BlackJack.DataAccsess\BlackJack.DataAccsess.csproj", "{B6CB4B0D-BCDD-45B0-A6F8-6A7DB89434D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackJack.DataAccsess", "BlackJack.DataAccsess\BlackJack.DataAccsess.csproj", "{B6CB4B0D-BCDD-45B0-A6F8-6A7DB89434D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
