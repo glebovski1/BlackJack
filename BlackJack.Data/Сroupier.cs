@@ -6,8 +6,6 @@ namespace BlackJack.Data
 {
     public class Сroupier : BasePlayer
     {
-        
-
         public Сroupier() : base()
         {
             base.FirstName = "Croupier";

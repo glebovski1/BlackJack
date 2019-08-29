@@ -9,7 +9,7 @@ using BlackJack.BuisnesLogic.Delegates;
 using BlackJack.BuisnesLogic.Services.Interfaces;
 using BlackJack.DataAccsess.Repositories.Interfaces;
 using BlackJack.DataAccsess.Repositories;
-
+using System.Configuration;
 
 namespace BlackJack.BuisnesLogic.Services
 {
@@ -19,14 +19,14 @@ namespace BlackJack.BuisnesLogic.Services
         protected PrintDell printDell { get; private set; }
         protected ReadDell readDell { get; private set; }
 
-        public UserPlayerService( PrintDell _printDell, ReadDell _readDell)
+        public UserPlayerService(PrintDell _printDell, ReadDell _readDell)
         {
             printDell = _printDell;
 
             readDell = _readDell;
 
             Menu();
-            
+
         }
 
         private void Menu()
@@ -52,7 +52,7 @@ namespace BlackJack.BuisnesLogic.Services
             decimal money = 0;
             try
             {
-                
+
                 money = Convert.ToDecimal(readDell());
 
             }
@@ -69,43 +69,37 @@ namespace BlackJack.BuisnesLogic.Services
 
             return money;
 
-            
+
         }
-        
+
         public override bool Next()
         {
 
-
             printDell(Messages.MessAskingCommand);
-            for (int i = 0; i < 1; i++)
+
+            string command = readDell().ToString();
+
+            if (command == Commands.n.ToString())
             {
-                
-                string command = readDell().ToString();
-                if (command == Commands.n.ToString())
-                {
-                    
-                    return true;
 
-                }
-                 if (command == Commands.s.ToString())
-                 {
+                return true;
 
-                    return false;
-                 }
-
-                 if (command == Commands.q.ToString())
-                 {
-                    break;
-                 }
-
-                printDell(Messages.MessError);
-                 i = 0;
-                
-                
             }
+
+            if (command == Commands.s.ToString())
+            {
+
+                return false;
+            }
+
+            printDell(Messages.MessError);
+
+            Next();
+
             return false;
 
         }
+        
         public override void SetCard(Card card)
         {
             base.SetCard(card);
@@ -114,7 +108,6 @@ namespace BlackJack.BuisnesLogic.Services
 
         public void Logging()
         {
-            
 
             IUserRepository userRepository = new UserRepository();
 
@@ -123,8 +116,6 @@ namespace BlackJack.BuisnesLogic.Services
             string password;
 
             string paswordFromBD;
-
-            
 
             printDell(Messages.MessFirstName);
 
@@ -148,8 +139,6 @@ namespace BlackJack.BuisnesLogic.Services
             {
                 printDell(Messages.MessError);
             }
-            
-
 
         }
 
@@ -195,12 +184,8 @@ namespace BlackJack.BuisnesLogic.Services
 
                 userRepository.SetUserDB(UserPlayer);
 
-
             }
 
-
-                       
-            
         }
 
         public void UpdateMoney()
@@ -215,8 +200,11 @@ namespace BlackJack.BuisnesLogic.Services
         public void ShowInfo()
         {
             printDell(Messages.MessFirstName + UserPlayer.FirstName);
+
             printDell(Messages.MessLastname + UserPlayer.LastName);
+
             printDell(Messages.MessPassword + UserPlayer.Password);
+
             printDell(Messages.MessMoney + Convert.ToString(UserPlayer.Money));
         }
 
@@ -225,4 +213,6 @@ namespace BlackJack.BuisnesLogic.Services
             UserPlayer.Money += money;
         }
     }
-}
+}   
+    
+

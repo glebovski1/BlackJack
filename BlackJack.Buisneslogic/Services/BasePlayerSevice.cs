@@ -16,10 +16,7 @@ namespace BlackJack.BuisnesLogic.Services
             BasePlayer = new BasePlayer();
 
         }
-
-
-       
-
+                    
         public string GetName()
         {
             return BasePlayer.FirstName;
@@ -46,7 +43,6 @@ namespace BlackJack.BuisnesLogic.Services
             }
         }
         
-
         public virtual bool Next()
         {
             return true;
@@ -56,7 +52,6 @@ namespace BlackJack.BuisnesLogic.Services
         {
             return 0;
         }
-
-       
+               
     }
 }

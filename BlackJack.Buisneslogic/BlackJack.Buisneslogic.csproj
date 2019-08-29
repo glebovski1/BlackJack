@@ -12,7 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlackJack.Constants\BlackJack.Constants.csproj" />
     <ProjectReference Include="..\BlackJack.DataAccsess\BlackJack.DataAccsess.csproj" />
-    <ProjectReference Include="..\BlackJack.Data\BlackJack.Entity.csproj" />
+    <ProjectReference Include="..\BlackJack.Data\BlackJack.DataModels.csproj" />
     <ProjectReference Include="..\BlackJack.Enums\BlackJack.Enums.csproj" />
   </ItemGroup>
 

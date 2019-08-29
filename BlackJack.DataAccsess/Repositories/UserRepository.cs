@@ -6,17 +6,19 @@ using System.Text;
 using BlackJack.Data;
 using BlackJack.DataAccsess.Repositories.Interfaces;
 using static BlackJack.Constants.Constants;
-
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 namespace BlackJack.DataAccsess.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
+       
         public int GetID(string name)
         {
             string sqlExpression = String.Format("SELECT Id FROM Users WHERE FirstName = '{0}';", name);
 
             
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+            SqlConnection connection = new SqlConnection(conectionString);
 
             connection.Open();
 
@@ -33,7 +35,7 @@ namespace BlackJack.DataAccsess.Repositories
         {
             string sqlExpression = String.Format("SELECT UserPassword FROM Users WHERE ID = {0};", id);
 
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+            SqlConnection connection = new SqlConnection(conectionString);
 
             connection.Open();
 
@@ -45,9 +47,7 @@ namespace BlackJack.DataAccsess.Repositories
 
             return password;
         }
-
-        
-
+                
         public UserPlayer GetUserDB(int id)
         {
 
@@ -55,7 +55,7 @@ namespace BlackJack.DataAccsess.Repositories
 
             string sqlExpression = String.Format("SELECT * FROM Users Where ID = {0};",id);
 
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+            SqlConnection connection = new SqlConnection(conectionString);
 
             connection.Open();
 
@@ -73,10 +73,7 @@ namespace BlackJack.DataAccsess.Repositories
             }
 
             return null;
-           
-            
-
-            
+                                             
         }
 
         public void SetUserDB(UserPlayer user)
@@ -90,8 +87,8 @@ namespace BlackJack.DataAccsess.Repositories
             string password = user.Password;
 
             string sqlExpression = String.Format("INSERT INTO Users (FirstName, LastName, UserPassword, UserMoney) VALUES ('{0}','{1}',{2},'{3}');", firstname, lastname, password, money);
-
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+                                 
+            SqlConnection connection = new SqlConnection(conectionString);  ;
 
             connection.Open();
 
@@ -109,7 +106,7 @@ namespace BlackJack.DataAccsess.Repositories
         {
             string sqlExpression = String.Format("UPDATE Users SET UserMoney={0} WHERE ID={1};", money, id);
 
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString);
+            SqlConnection connection = new SqlConnection(conectionString);
 
             connection.Open();
 

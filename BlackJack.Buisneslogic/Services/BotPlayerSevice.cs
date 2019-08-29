@@ -30,10 +30,7 @@ namespace BlackJack.BuisnesLogic.Services
             {
                 base.BaseBotPlayers.Add(BotPlayers[i]);
             }
-                
-
-            
-
+                 
         }
         public override decimal GetMoney(int botIndex)
         {
@@ -54,11 +51,7 @@ namespace BlackJack.BuisnesLogic.Services
                 return false;
             }
         }
-        
-
-            
-    
-
+                    
         public string GetRandomBotName()
         {
             Random random = new Random();
@@ -67,10 +60,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             return Convert.ToString((BotNames)RandomBotNumber);
         }
-
-
-
-
+                     
     }
 }
 

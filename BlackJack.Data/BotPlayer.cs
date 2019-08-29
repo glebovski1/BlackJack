@@ -6,15 +6,11 @@ namespace BlackJack.Data
 {
     public class BotPlayer : BasePlayer
     {
-        
-
         public decimal Money { get; set; }
 
         public BotPlayer (string firstname, decimal money) : base(firstname)
         {
-            
-
-            Money = money;
+           Money = money;
         }
     }
 }

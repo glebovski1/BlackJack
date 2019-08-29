@@ -6,8 +6,6 @@ namespace BlackJack.Data
 {
     public class UserPlayer : BasePlayer
     {
-        
-
         public string LastName { get; set; }
 
         public decimal Money { get; set; }
@@ -17,7 +15,6 @@ namespace BlackJack.Data
         public UserPlayer(string firstname, string lastname, decimal money, string password) : base(firstname)
         {
             
-
             LastName = lastname;
 
             Money = money;

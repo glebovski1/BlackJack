@@ -80,8 +80,6 @@ namespace BlackJack.BuisnesLogic.Services
             }
         }
 
-        
-
         public void SetScore(int botIndex, int x)
         {
             BaseBotPlayers[botIndex].Score = x;

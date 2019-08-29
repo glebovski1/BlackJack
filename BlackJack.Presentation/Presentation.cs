@@ -24,6 +24,7 @@ namespace Presentation
         public void Start()
         {
             Console.WriteLine(Messages.MessWelcome);
+            Console.WriteLine(Messages.MessMenu);
 
             string command = Console.ReadLine();
 
@@ -41,17 +42,10 @@ namespace Presentation
                 Console.WriteLine(Messages.MessError);
             }
         }
-
-
-
-
-
-
-
+                
         public void NewGame()
         {
-            Console.WriteLine(Messages.MessWelcome);
-
+            
             GameService gameService = new GameService( Read, Print);
 
             gameService.Game();

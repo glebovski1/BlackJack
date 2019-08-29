@@ -6,6 +6,7 @@ using BlackJack.Enums;
 using static BlackJack.Constants.Constants;
 
 using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace Presentation
 {
@@ -14,7 +15,6 @@ namespace Presentation
         
         static void Main(string[] args)
         {
-           
             
             Presentation presentation;
                             
@@ -22,7 +22,6 @@ namespace Presentation
 
             presentation.Start();
                 
-            
         }
     }
 }
