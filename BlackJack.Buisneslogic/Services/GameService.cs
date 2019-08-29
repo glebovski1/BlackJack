@@ -26,8 +26,8 @@ namespace BlackJack.BuisnesLogic.Services
 
         protected PrintDell printDell;
 
-        protected ReadDell readDell;                               
-                
+        protected ReadDell readDell;
+
         public GameService(ReadDell _readDell, PrintDell _printDell)
         {
             readDell = _readDell;
@@ -51,58 +51,59 @@ namespace BlackJack.BuisnesLogic.Services
         public void Game()
         {
             decimal money = 0;
-            for (int i=0; i< DefaultNumberOfRounds; i++)
+            for (int i = 0; i < DefaultNumberOfRounds; i++)
             {
                 if (money == 0)
                 {
                     money = MoneyRates();
                 }
-                Round(ref money);    
+                Round(ref money);
             }
 
             Game();
-            
+
         }
         public void GetWinner(ref decimal money)
         {
             if ((UserService.GetScore() >= (BotService as BaseBotService).GetBestScore()) && (UserService.GetScore() >= (CroupierService as BasePlayerSevice).GetScore()))
             {
-                
-                    (UserService as UserPlayerService).SetMoney(money);
 
-                    printDell(Messages.MessWinner + " " + (UserService as UserPlayerService).UserPlayer.FirstName);
-                
+                (UserService as UserPlayerService).SetMoney(money);
 
-               
+                printDell(Messages.MessWinner + " " + (UserService as UserPlayerService).UserPlayer.FirstName);
+
+
+
 
             }
 
             if ((UserService.GetScore() < (BotService as BaseBotService).GetBestScore()) && ((BotService as BaseBotService).GetBestScore() > (CroupierService as BasePlayerSevice).GetScore()))
             {
-                
-                    int bestBotIndex = (BotService as BaseBotService).GetBestScoreIndex();
 
-                    BasePlayer botPlayer = (BotService as BaseBotService).GetBotPlayer(bestBotIndex);
+                int bestBotIndex = (BotService as BaseBotService).GetBestScoreIndex();
 
-                    (botPlayer as BotPlayer).Money += money;
+                BasePlayer botPlayer = (BotService as BaseBotService).GetBotPlayer(bestBotIndex);
 
-                    printDell(Messages.MessWinner + " " + botPlayer.FirstName);
-                
-                    
+
+                (botPlayer as BotPlayer).Money += money;
+
+                printDell(Messages.MessWinner + " " + botPlayer.FirstName);
+
+
             }
 
             if (((CroupierService as BasePlayerSevice).GetScore() > UserService.GetScore()) && ((CroupierService as BasePlayerSevice).GetScore() > (BotService as BaseBotService).GetBestScore()))
             {
                 printDell(Messages.MessWinner + " " + (CroupierService as BasePlayerSevice).GetName());
             }
-             
+
             UserService.SetScore(0);
 
             (CroupierService as BasePlayerSevice).SetScore(0);
 
-            for(int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
+            for (int i = 0; i < (BotService as BotService).BotPlayers.Count; i++)
             {
-               (BotService as BaseBotService).SetScore(i,0);
+                (BotService as BaseBotService).SetScore(i, 0);
             }
 
             money = 0;
@@ -111,26 +112,27 @@ namespace BlackJack.BuisnesLogic.Services
 
         }
 
+
         public void Round(ref decimal money)
         {
-            
-                (CroupierService as CroupierService).SetCard(DeckService.GetCard());
+
+            (CroupierService as CroupierService).SetCard(DeckService.GetCard());
 
             bool playerStep = UserService.Next();
 
-                if (playerStep)
-                {
-                    UserService.SetCard(DeckService.GetCard());
-                    
-                }
-                if (!playerStep)
-                {
-                    GetWinner(ref money);
-               
-                }
+            if (playerStep)
+            {
+                UserService.SetCard(DeckService.GetCard());
 
-                BotAction(ref money);
-                
+            }
+            if (!playerStep)
+            {
+                GetWinner(ref money);
+
+            }
+
+            BotAction(ref money);
+
         }
         public void BotAction(ref decimal money)
         {
@@ -143,21 +145,21 @@ namespace BlackJack.BuisnesLogic.Services
                 if (!BotService.Next(i))
                 {
                     GetWinner(ref money);
-                     
+
                 }
             }
         }
         public decimal MoneyRates()
         {
-            decimal maney=0;
+            decimal maney = 0;
 
             maney += UserService.GetMoney();
-            for (int i=0; i<(BotService as BotService).BotPlayers.Count; i++)
+            for (int i = 0; i < (BotService as BotService).BotPlayers.Count; i++)
             {
                 maney += BotService.GetMoney(i);
             }
             return maney;
-            
+
         }
     }
 }

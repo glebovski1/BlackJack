@@ -111,7 +111,7 @@ namespace BlackJack.BuisnesLogic.Services
 
             IUserRepository userRepository = new UserRepository();
 
-            string loggin;
+            string loggin = String.Empty;
 
             string password;
 

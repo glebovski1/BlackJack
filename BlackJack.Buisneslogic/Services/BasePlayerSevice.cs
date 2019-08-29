@@ -25,9 +25,9 @@ namespace BlackJack.BuisnesLogic.Services
         {
             return BasePlayer.Score;
         }
-        public void SetScore(int x)
+        public void SetScore(int score)
         {
-            BasePlayer.Score = x;
+            BasePlayer.Score = score;
         }
         public virtual void SetCard(Card card)
         {
